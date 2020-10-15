@@ -8,7 +8,7 @@
 import SwiftUI
 import DomainLayer
 
-public protocol PopularMoviesViewDependencies: MovieViewDependencies {
+public protocol PopularMoviesViewDependencies: MovieListItemViewDependencies {
     var popularMoviesUseCase: PopularMoviesUseCase { get }
 }
 
@@ -29,7 +29,7 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
             NavigationView {
                 List(viewModel.movies, id: \.id) { movie in
                     NavigationLink(destination: detailsView(movie.id)) {
-                        MovieView(dependencies: dependencies, id: movie.id, title: movie.title)
+                        MovieListItemView(dependencies: dependencies, id: movie.id, title: movie.title)
                     }
                 }.navigationBarTitle("Popular movies")
             }

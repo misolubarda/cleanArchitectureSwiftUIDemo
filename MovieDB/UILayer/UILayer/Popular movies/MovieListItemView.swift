@@ -1,5 +1,5 @@
 //
-//  MovieView.swift
+//  MovieListItemView.swift
 //  UILayer
 //
 //  Created by Miso Lubarda on 14.10.20.
@@ -8,16 +8,16 @@
 import SwiftUI
 import DomainLayer
 
-public protocol MovieViewDependencies {
+public protocol MovieListItemViewDependencies {
     var posterImageUseCase: PosterImageUseCase { get }
 }
 
-struct MovieView: View {
-    @ObservedObject private var viewModel: MovieViewModel
+struct MovieListItemView: View {
+    @ObservedObject private var viewModel: MovieListItemViewModel
     let title: String
 
-    init(dependencies: MovieViewDependencies, id: String, title: String) {
-        viewModel = MovieViewModel(dependencies: dependencies, movieId: id)
+    init(dependencies: MovieListItemViewDependencies, id: String, title: String) {
+        viewModel = MovieListItemViewModel(dependencies: dependencies, movieId: id)
         self.title = title
     }
 
@@ -41,13 +41,13 @@ struct MovieView: View {
     }
 }
 
-private class MovieViewModel: ObservableObject {
-    private let dependencies: MovieViewDependencies
+private class MovieListItemViewModel: ObservableObject {
+    private let dependencies: MovieListItemViewDependencies
     private let movieId: String
 
     @Published var image: UIImage?
 
-    init(dependencies: MovieViewDependencies, movieId: String) {
+    init(dependencies: MovieListItemViewDependencies, movieId: String) {
         self.dependencies = dependencies
         self.movieId = movieId
     }
