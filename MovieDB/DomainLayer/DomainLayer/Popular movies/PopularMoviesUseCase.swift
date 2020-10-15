@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol PopularMoviesUseCase {
-    func fetch(_ completion: @escaping (_ result: Result<[Movie], Error>) -> Void)
+    func fetch(completion: @escaping (_ result: Result<[Movie], Error>) -> Void)
 }

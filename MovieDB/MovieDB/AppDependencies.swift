@@ -11,5 +11,7 @@ import DomainLayer
 import DataLayer
 
 class AppDependencies: MainViewDependencies {
-    var popularMoviesUseCase: PopularMoviesUseCase = TMDBPopularMoviesProvider()
+    private let popularMoviesProvider = TMDBPopularMoviesProvider()
+    lazy var popularMoviesUseCase: PopularMoviesUseCase = popularMoviesProvider
+    lazy var posterImageUseCase: PosterImageUseCase = PosterImageInteractor(popularMoviesProvider: popularMoviesProvider, posterImageProvider: TMDBPosterImageProvider())
 }

@@ -13,6 +13,9 @@
 		42733C0F253749B800418642 /* PopularMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C0E253749B800418642 /* PopularMoviesUseCase.swift */; };
 		42733C13253749DD00418642 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C12253749DD00418642 /* Movie.swift */; };
 		42733C1A25374AE800418642 /* PopularMoviesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C1925374AE800418642 /* PopularMoviesProvider.swift */; };
+		42733C41253754E700418642 /* PosterImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C40253754E700418642 /* PosterImageUseCase.swift */; };
+		42733C4E2537556300418642 /* PosterImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C4D2537556300418642 /* PosterImageProvider.swift */; };
+		42733C5A25375A1300418642 /* PosterImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C5925375A1300418642 /* PosterImageInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,9 @@
 		42733C0E253749B800418642 /* PopularMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesUseCase.swift; sourceTree = "<group>"; };
 		42733C12253749DD00418642 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		42733C1925374AE800418642 /* PopularMoviesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesProvider.swift; sourceTree = "<group>"; };
+		42733C40253754E700418642 /* PosterImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageUseCase.swift; sourceTree = "<group>"; };
+		42733C4D2537556300418642 /* PosterImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageProvider.swift; sourceTree = "<group>"; };
+		42733C5925375A1300418642 /* PosterImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 				42733B812537475300418642 /* DomainLayer.h */,
 				42733B822537475300418642 /* Info.plist */,
 				42733C16253749E500418642 /* Popular movies */,
+				42733C442537554900418642 /* Poster image */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -101,6 +108,16 @@
 				42733C1925374AE800418642 /* PopularMoviesProvider.swift */,
 			);
 			path = "Popular movies";
+			sourceTree = "<group>";
+		};
+		42733C442537554900418642 /* Poster image */ = {
+			isa = PBXGroup;
+			children = (
+				42733C40253754E700418642 /* PosterImageUseCase.swift */,
+				42733C5925375A1300418642 /* PosterImageInteractor.swift */,
+				42733C4D2537556300418642 /* PosterImageProvider.swift */,
+			);
+			path = "Poster image";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +229,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42733C41253754E700418642 /* PosterImageUseCase.swift in Sources */,
 				42733C1A25374AE800418642 /* PopularMoviesProvider.swift in Sources */,
+				42733C4E2537556300418642 /* PosterImageProvider.swift in Sources */,
+				42733C5A25375A1300418642 /* PosterImageInteractor.swift in Sources */,
 				42733C13253749DD00418642 /* Movie.swift in Sources */,
 				42733C0F253749B800418642 /* PopularMoviesUseCase.swift in Sources */,
 			);

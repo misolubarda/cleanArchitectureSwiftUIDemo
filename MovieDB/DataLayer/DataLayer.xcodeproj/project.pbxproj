@@ -16,6 +16,9 @@
 		42733BF42537483C00418642 /* DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42733BF32537483C00418642 /* DomainLayer.framework */; };
 		42733BF52537483C00418642 /* DomainLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42733BF32537483C00418642 /* DomainLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42733C1E25374B1200418642 /* TMDBPopularMoviesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C1D25374B1200418642 /* TMDBPopularMoviesProvider.swift */; };
+		42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C3D2537535900418642 /* TMDBImageRequest.swift */; };
+		42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C53253755D100418642 /* TMDBPosterImageProvider.swift */; };
+		42733C572537562300418642 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C562537562300418642 /* FileService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,9 @@
 		42733BE2253747DF00418642 /* TMDBRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBRequest.swift; sourceTree = "<group>"; };
 		42733BF32537483C00418642 /* DomainLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DomainLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42733C1D25374B1200418642 /* TMDBPopularMoviesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPopularMoviesProvider.swift; sourceTree = "<group>"; };
+		42733C3D2537535900418642 /* TMDBImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBImageRequest.swift; sourceTree = "<group>"; };
+		42733C53253755D100418642 /* TMDBPosterImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPosterImageProvider.swift; sourceTree = "<group>"; };
+		42733C562537562300418642 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +105,11 @@
 			isa = PBXGroup;
 			children = (
 				42733BE2253747DF00418642 /* TMDBRequest.swift */,
+				42733C3D2537535900418642 /* TMDBImageRequest.swift */,
 				42733BDB2537479200418642 /* Networking */,
 				42733BB32537476500418642 /* DataLayer.h */,
 				42733BB42537476500418642 /* Info.plist */,
-				42733C1D25374B1200418642 /* TMDBPopularMoviesProvider.swift */,
+				42733C51253755B900418642 /* Providers */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -121,6 +128,7 @@
 			children = (
 				42733BDC253747A400418642 /* NetworkSession.swift */,
 				42733BDD253747A400418642 /* WebService.swift */,
+				42733C562537562300418642 /* FileService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -131,6 +139,15 @@
 				42733BF32537483C00418642 /* DomainLayer.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42733C51253755B900418642 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				42733C1D25374B1200418642 /* TMDBPopularMoviesProvider.swift */,
+				42733C53253755D100418642 /* TMDBPosterImageProvider.swift */,
+			);
+			path = Providers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +260,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */,
+				42733C572537562300418642 /* FileService.swift in Sources */,
+				42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */,
 				42733BE3253747DF00418642 /* TMDBRequest.swift in Sources */,
 				42733BDF253747A400418642 /* WebService.swift in Sources */,
 				42733C1E25374B1200418642 /* TMDBPopularMoviesProvider.swift in Sources */,

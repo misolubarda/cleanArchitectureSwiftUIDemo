@@ -15,6 +15,7 @@
 		42733C0B253748D800418642 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C0A253748D800418642 /* MainView.swift */; };
 		42733C2125374C6B00418642 /* PopularMoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C2025374C6B00418642 /* PopularMoviesView.swift */; };
 		42733C2525374DFB00418642 /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C2425374DFB00418642 /* MovieDetailsView.swift */; };
+		42733C3B2537521200418642 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C3A2537521200418642 /* MovieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		42733C0A253748D800418642 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		42733C2025374C6B00418642 /* PopularMoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesView.swift; sourceTree = "<group>"; };
 		42733C2425374DFB00418642 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
+		42733C3A2537521200418642 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				42733C0A253748D800418642 /* MainView.swift */,
-				42733C2025374C6B00418642 /* PopularMoviesView.swift */,
+				42733C33253751F900418642 /* Popular movies */,
 				42733C2425374DFB00418642 /* MovieDetailsView.swift */,
 				42733B4F2537473200418642 /* UILayer.h */,
 				42733B502537473200418642 /* Info.plist */,
@@ -120,6 +122,15 @@
 				42733BF92537484700418642 /* DomainLayer.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42733C33253751F900418642 /* Popular movies */ = {
+			isa = PBXGroup;
+			children = (
+				42733C2025374C6B00418642 /* PopularMoviesView.swift */,
+				42733C3A2537521200418642 /* MovieView.swift */,
+			);
+			path = "Popular movies";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42733C2525374DFB00418642 /* MovieDetailsView.swift in Sources */,
+				42733C3B2537521200418642 /* MovieView.swift in Sources */,
 				42733C0B253748D800418642 /* MainView.swift in Sources */,
 				42733C2125374C6B00418642 /* PopularMoviesView.swift in Sources */,
 			);

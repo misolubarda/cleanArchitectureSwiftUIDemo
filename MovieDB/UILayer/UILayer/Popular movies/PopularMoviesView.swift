@@ -8,7 +8,7 @@
 import SwiftUI
 import DomainLayer
 
-public protocol PopularMoviesViewDependencies {
+public protocol PopularMoviesViewDependencies: MovieViewDependencies {
     var popularMoviesUseCase: PopularMoviesUseCase { get }
 }
 
@@ -16,19 +16,21 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
     @ObservedObject private var viewModel: PopularMoviesViewModel
     typealias DetailsViewCallback = (_ movieId: String) -> DetailsView
     let detailsView: DetailsViewCallback
+    private let dependencies: PopularMoviesViewDependencies
 
     init(dependencies: PopularMoviesViewDependencies, detailsView: @escaping DetailsViewCallback) {
         viewModel = PopularMoviesViewModel(dependencies: dependencies)
         self.detailsView = detailsView
+        self.dependencies = dependencies
     }
 
     var body: some View {
         VStack {
             NavigationView {
                 List(viewModel.movies, id: \.id) { movie in
-                    NavigationLink(movie.title, destination: detailsView(movie.id))
-                        .font(.headline)
-                        .lineLimit(2)
+                    NavigationLink(destination: detailsView(movie.id)) {
+                        MovieView(dependencies: dependencies, id: movie.id, title: movie.title)
+                    }
                 }.navigationBarTitle("Popular movies")
             }
         }

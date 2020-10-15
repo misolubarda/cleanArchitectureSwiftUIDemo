@@ -1,5 +1,5 @@
 //
-//  TMDBRequest.swift
+//  TMDBImageRequest.swift
 //  DataLayer
 //
 //  Created by Miso Lubarda on 14.10.20.
@@ -7,24 +7,28 @@
 
 import Foundation
 
-struct TMDBRequest {
-    private let baseUrlString = "https://api.themoviedb.org/3"
-    private let authParameters = "?" + "api_key=13b51907351de1f890bac01ceb71fbae"
-    let endpoint: Endpoint
+struct TMDBImageRequest {
+    private enum ImageSize: String {
+        case original, w500
+    }
 
-    init(endpoint: Endpoint) {
-        self.endpoint = endpoint
+    private let baseUrlString = "https://image.tmdb.org/t/p"
+    private let imageSize = ImageSize.w500
+    let imageName: String
+
+    init(imageName: String) {
+        self.imageName = imageName
     }
 
     func urlRequest() throws -> URLRequest {
-        let urlString = baseUrlString + "/" + endpoint.path + authParameters + endpoint.parameters
-        guard let url = URL(string: urlString) else { throw TMDBRequestError.urlMalformed }
+        let urlString = baseUrlString + "/" + imageSize.rawValue + imageName
+        guard let url = URL(string: urlString) else { throw TMDBImageRequestError.urlMalformed }
         return URLRequest(url: url)
     }
 }
 
 // MARK: Endpoints
-extension TMDBRequest {
+extension TMDBImageRequest {
     enum Endpoint {
         case popularMovies, details(movieId: String)
 
@@ -48,6 +52,6 @@ extension TMDBRequest {
     }
 }
 
-private enum TMDBRequestError: Error {
+private enum TMDBImageRequestError: Error {
     case urlMalformed
 }
