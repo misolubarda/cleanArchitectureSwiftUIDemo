@@ -8,32 +8,34 @@
 import Foundation
 
 public class PosterImageInteractor: PosterImageUseCase {
-    private let popularMoviesProvider: PopularMoviesProvider
+    private let posterNameProvider: PosterNameProvider
     private let posterImageProvider: PosterImageProvider
 
-    public init(popularMoviesProvider: PopularMoviesProvider, posterImageProvider: PosterImageProvider) {
-        self.popularMoviesProvider = popularMoviesProvider
+    public init(posterNameProvider: PosterNameProvider, posterImageProvider: PosterImageProvider) {
+        self.posterNameProvider = posterNameProvider
         self.posterImageProvider = posterImageProvider
     }
 
     public func fetch(movieId: String, completion: @escaping (Result<Data, Error>) -> Void) {
         var posterName: String!
 
-        let dispatchGroup = DispatchGroup()
+        DispatchQueue(label: "PosterImageInteractor_queue").async {
+            let dispatchGroup = DispatchGroup()
 
-        dispatchGroup.enter()
-        popularMoviesProvider.posterName(forMovieId: movieId) { result in
-            switch result {
-            case let .success(_posterName):
-                posterName = _posterName
-                dispatchGroup.leave()
-            case let .failure(error):
-                completion(.failure(error))
+            dispatchGroup.enter()
+            self.posterNameProvider.posterName(forMovieId: movieId) { result in
+                switch result {
+                case let .success(_posterName):
+                    posterName = _posterName
+                    dispatchGroup.leave()
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+
+            dispatchGroup.notify(queue: .main) {
+                self.posterImageProvider.fetch(imageName: posterName, completion: completion)
             }
         }
-
-        dispatchGroup.wait()
-
-        posterImageProvider.fetch(imageName: posterName, completion: completion)
     }
 }

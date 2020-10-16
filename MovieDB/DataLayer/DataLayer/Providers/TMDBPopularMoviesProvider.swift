@@ -8,7 +8,7 @@
 import Foundation
 import DomainLayer
 
-public class TMDBPopularMoviesProvider: PopularMoviesProvider {
+public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvider {
     let webService: WebServiceProtocol
     private var cachedMovies: [MovieDTO] = []
 
@@ -43,10 +43,12 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider {
     }
 
     public func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void) {
-        if let matchedMovieDTO = cachedMovies.first(where: { String($0.id) == movieId }) {
-            completion(.success(matchedMovieDTO.poster_path))
-        } else {
-            completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
+        DispatchQueue.main.async {
+            if let matchedMovieDTO = self.cachedMovies.first(where: { String($0.id) == movieId }) {
+                completion(.success(matchedMovieDTO.poster_path))
+            } else {
+                completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
+            }
         }
     }
 }

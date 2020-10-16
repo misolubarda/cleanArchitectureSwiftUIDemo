@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		426C868125389F5E0038BC43 /* TMDBMovieDetailsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C868025389F5E0038BC43 /* TMDBMovieDetailsProvider.swift */; };
 		42733BBA2537476500418642 /* DataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42733BB02537476500418642 /* DataLayer.framework */; };
 		42733BBF2537476500418642 /* DataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733BBE2537476500418642 /* DataLayerTests.swift */; };
 		42733BC12537476500418642 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42733BB32537476500418642 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -46,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		426C868025389F5E0038BC43 /* TMDBMovieDetailsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBMovieDetailsProvider.swift; sourceTree = "<group>"; };
 		42733BB02537476500418642 /* DataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42733BB32537476500418642 /* DataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataLayer.h; sourceTree = "<group>"; };
 		42733BB42537476500418642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				42733C1D25374B1200418642 /* TMDBPopularMoviesProvider.swift */,
 				42733C53253755D100418642 /* TMDBPosterImageProvider.swift */,
+				426C868025389F5E0038BC43 /* TMDBMovieDetailsProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */,
+				426C868125389F5E0038BC43 /* TMDBMovieDetailsProvider.swift in Sources */,
 				42733C572537562300418642 /* FileService.swift in Sources */,
 				42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */,
 				42733BE3253747DF00418642 /* TMDBRequest.swift in Sources */,

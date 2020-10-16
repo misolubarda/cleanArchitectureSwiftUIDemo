@@ -26,13 +26,14 @@ struct TMDBRequest {
 // MARK: Endpoints
 extension TMDBRequest {
     enum Endpoint {
-        case popularMovies, details(movieId: String)
+        case popularMovies
+        case movieDetails(movieId: String)
 
         var path: String {
             switch self {
             case .popularMovies:
                 return "movie/popular"
-            case let .details(movieId):
+            case let .movieDetails(movieId):
                 return "movie/\(movieId)"
             }
         }
@@ -41,7 +42,7 @@ extension TMDBRequest {
             switch self {
             case .popularMovies:
                 return ""
-            case .details:
+            case .movieDetails:
                 return ""
             }
         }

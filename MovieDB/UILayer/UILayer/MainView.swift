@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public protocol MainViewDependencies: PopularMoviesViewDependencies {}
+public protocol MainViewDependencies: PopularMoviesViewDependencies, MovieDetailsViewDependencies {}
 
 public struct MainView: View {
     private let dependencies: MainViewDependencies
@@ -19,7 +19,7 @@ public struct MainView: View {
 
     public var body: some View {
         PopularMoviesView(dependencies: dependencies) { movieId in
-            MovieDetailsView()
+            MovieDetailsView(dependencies: dependencies, movieId: movieId)
         }
     }
 }

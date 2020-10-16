@@ -7,6 +7,4 @@
 
 import Foundation
 
-public protocol PopularMoviesProvider: PopularMoviesUseCase {
-    func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void)
-}
+public protocol PopularMoviesProvider: PopularMoviesUseCase {}

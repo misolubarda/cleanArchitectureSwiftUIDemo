@@ -27,31 +27,6 @@ struct TMDBImageRequest {
     }
 }
 
-// MARK: Endpoints
-extension TMDBImageRequest {
-    enum Endpoint {
-        case popularMovies, details(movieId: String)
-
-        var path: String {
-            switch self {
-            case .popularMovies:
-                return "movie/popular"
-            case let .details(movieId):
-                return "movie/\(movieId)"
-            }
-        }
-
-        var parameters: String {
-            switch self {
-            case .popularMovies:
-                return ""
-            case .details:
-                return ""
-            }
-        }
-    }
-}
-
 private enum TMDBImageRequestError: Error {
     case urlMalformed
 }
