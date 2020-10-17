@@ -31,22 +31,45 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
                     NavigationLink(destination: detailsView(movie.id)) {
                         MovieListItemView(dependencies: dependencies, id: movie.id, title: movie.title)
                     }
-                }.navigationBarTitle("Popular movies")
+                    .onAppear { viewModel.moveIdAppeared = movie.id }
+                }
+                .navigationBarTitle("Popular movies")
             }
         }
     }
 }
 
 private class PopularMoviesViewModel: ObservableObject {
+    private let dependencies: PopularMoviesViewDependencies
     @Published var movies: [Movie] = []
+    var moveIdAppeared: String = "" {
+        didSet {
+            if moveIdAppeared == movies.last?.id {
+                loadMore()
+            }
+        }
+    }
 
     init(dependencies: PopularMoviesViewDependencies) {
+        self.dependencies = dependencies
+
         dependencies.popularMoviesUseCase.fetch { result in
             switch result {
             case let .success(movies):
                 self.movies = movies
             case .failure:
                 self.movies = []
+            }
+        }
+    }
+
+    func loadMore() {
+        dependencies.popularMoviesUseCase.fetchMore { result in
+            switch result {
+            case let .success(movies):
+                self.movies = movies
+            case .failure:
+                break
             }
         }
     }
