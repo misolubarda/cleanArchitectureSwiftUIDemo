@@ -10,6 +10,8 @@ import DomainLayer
 
 public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     private let webService: WebServiceProtocol
+    private let deviceLanguageCode: DeviceLanguageCode
+
     private lazy var dateForamtter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-mm-dd"
@@ -17,16 +19,20 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     }()
 
     public convenience init() {
-        self.init(webService: WebService())
+        self.init(webService: WebService(), deviceLanguageCode: DeviceInfo())
     }
 
-    init(webService: WebServiceProtocol) {
+    init(webService: WebServiceProtocol, deviceLanguageCode: DeviceLanguageCode) {
         self.webService = webService
+        self.deviceLanguageCode = deviceLanguageCode
     }
 
-    public func fetch(forMovieId movieId: String, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
+    public func fetch(forMovieId movieId: String, localized: Bool, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
         do {
-            let request = try TMDBRequest(endpoint: .movieDetails(movieId: movieId)).urlRequest()
+            let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
+            let endpoint = TMDBRequest.Endpoint.movieDetails(movieId: movieId,
+                                                             iso639_1: localized ? languageCode : nil)
+            let request = try TMDBRequest(endpoint: endpoint).urlRequest()
 
             webService.execute(request: request) { [weak self] (result: Result<MovieDetailsDTO, Error>) in
                 guard let self = self else { return }

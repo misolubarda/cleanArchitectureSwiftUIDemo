@@ -24,19 +24,22 @@ struct MovieDetailsView: View {
             ErrorView(errorText: "Something went wrong")
         } else {
             VStack {
-                Text(viewModel.title)
-                    .font(.title)
                 Spacer()
                 Text(viewModel.description)
                     .font(.body)
                 Spacer()
                 Text(viewModel.date)
             }
+            .navigationBarTitle(viewModel.title)
+            .navigationBarItems(trailing: Toggle("Lang", isOn: $viewModel.languageToggle))
         }
     }
 }
 
 private class MovieDetailsViewModel: ObservableObject {
+    private let dependencies: MovieDetailsViewDependencies
+    private let movieId: String
+
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .full
@@ -48,9 +51,20 @@ private class MovieDetailsViewModel: ObservableObject {
     @Published var title: String = "Loading..."
     @Published var description: String = ""
     @Published var date: String = ""
+    @Published var languageToggle: Bool = false {
+        didSet {
+            load()
+        }
+    }
 
     init(dependencies: MovieDetailsViewDependencies, movieId: String) {
-        dependencies.movieDetailsUseCase.fetch(forMovieId: movieId) { [weak self] result in
+        self.dependencies = dependencies
+        self.movieId = movieId
+        load()
+    }
+
+    func load() {
+        dependencies.movieDetailsUseCase.fetch(forMovieId: movieId, localized: languageToggle) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movieDetails):
@@ -59,6 +73,7 @@ private class MovieDetailsViewModel: ObservableObject {
                 if let releaseDate = movieDetails.releaseDate {
                     self.date = "Release date: " + self.dateFormatter.string(from: releaseDate)
                 }
+                self.showError = false
             case .failure:
                 self.showError = true
             }

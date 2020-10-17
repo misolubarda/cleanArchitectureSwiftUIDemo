@@ -27,13 +27,13 @@ struct TMDBRequest {
 extension TMDBRequest {
     enum Endpoint {
         case popularMovies
-        case movieDetails(movieId: String)
+        case movieDetails(movieId: String, iso639_1: String?)
 
         var path: String {
             switch self {
             case .popularMovies:
                 return "movie/popular"
-            case let .movieDetails(movieId):
+            case let .movieDetails(movieId, _):
                 return "movie/\(movieId)"
             }
         }
@@ -42,7 +42,10 @@ extension TMDBRequest {
             switch self {
             case .popularMovies:
                 return ""
-            case .movieDetails:
+            case let .movieDetails(_, iso639_1):
+                if let iso639_1 = iso639_1 {
+                    return "&language=\(iso639_1)"
+                }
                 return ""
             }
         }

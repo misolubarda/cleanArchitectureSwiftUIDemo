@@ -20,6 +20,7 @@
 		42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C3D2537535900418642 /* TMDBImageRequest.swift */; };
 		42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C53253755D100418642 /* TMDBPosterImageProvider.swift */; };
 		42733C572537562300418642 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C562537562300418642 /* FileService.swift */; };
+		42D4F7A52539E63400F6F077 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7932539E36F00F6F077 /* DeviceInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		42733C3D2537535900418642 /* TMDBImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBImageRequest.swift; sourceTree = "<group>"; };
 		42733C53253755D100418642 /* TMDBPosterImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPosterImageProvider.swift; sourceTree = "<group>"; };
 		42733C562537562300418642 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		42D4F7932539E36F00F6F077 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,9 +108,10 @@
 		42733BB22537476500418642 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				42733BDB2537479200418642 /* Networking */,
+				42D4F7922539E30C00F6F077 /* Device info */,
 				42733BE2253747DF00418642 /* TMDBRequest.swift */,
 				42733C3D2537535900418642 /* TMDBImageRequest.swift */,
-				42733BDB2537479200418642 /* Networking */,
 				42733BB32537476500418642 /* DataLayer.h */,
 				42733BB42537476500418642 /* Info.plist */,
 				42733C51253755B900418642 /* Providers */,
@@ -151,6 +154,14 @@
 				426C868025389F5E0038BC43 /* TMDBMovieDetailsProvider.swift */,
 			);
 			path = Providers;
+			sourceTree = "<group>";
+		};
+		42D4F7922539E30C00F6F077 /* Device info */ = {
+			isa = PBXGroup;
+			children = (
+				42D4F7932539E36F00F6F077 /* DeviceInfo.swift */,
+			);
+			path = "Device info";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +281,7 @@
 				42733BE3253747DF00418642 /* TMDBRequest.swift in Sources */,
 				42733BDF253747A400418642 /* WebService.swift in Sources */,
 				42733C1E25374B1200418642 /* TMDBPopularMoviesProvider.swift in Sources */,
+				42D4F7A52539E63400F6F077 /* DeviceInfo.swift in Sources */,
 				42733BDE253747A400418642 /* NetworkSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
