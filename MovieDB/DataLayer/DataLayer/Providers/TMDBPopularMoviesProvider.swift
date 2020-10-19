@@ -9,8 +9,8 @@ import Foundation
 import DomainLayer
 
 public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvider {
-    let webService: WebServiceProtocol
-    private var cachedMovies: [MovieDTO] = []
+    private let webService: WebServiceProtocol
+    private var cachedMovies: [TMDBPopularMovieDTO] = []
     private var currentPage = 0
     private var allPages = 0
 
@@ -22,11 +22,7 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
         self.webService = webService
     }
 
-    public func fetch(completion: @escaping (Result<[Movie], Error>) -> Void) {
-        fetch(page: 1, completion: completion)
-    }
-
-    public func fetchMore(completion: @escaping (Result<[Movie], Error>) -> Void) {
+    public func fetchNext(completion: @escaping (Result<[Movie], Error>) -> Void) {
         fetch(page: currentPage + 1, completion: completion)
     }
 
@@ -43,24 +39,25 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
     private func fetch(page: Int, completion: @escaping (Result<[Movie], Error>) -> Void) {
         do {
             guard page == currentPage + 1 else {
-                throw TMDBPopularMoviesProviderError.wrongPage
+                completion(.success(cachedMovies.movies))
+                return
             }
 
             let request = try TMDBRequest(endpoint: .popularMovies(page: page)).urlRequest()
 
-            webService.execute(request: request) { [weak self] (result: Result<ResponseDTO, Error>) in
+            webService.execute(request: request) { [weak self] (result: Result<TMDBPopularMoviesResponseDTO, Error>) in
                 guard let self = self else { return }
                 switch result {
                 case let .success(responseDTO):
-                    guard responseDTO.page == self.currentPage + 1 else { return }
+                    guard responseDTO.page == self.currentPage + 1 else {
+                        completion(.failure(TMDBPopularMoviesProviderError.wrongPage))
+                        return
+                    }
 
                     self.cachedMovies.append(contentsOf: responseDTO.results)
                     self.currentPage = responseDTO.page
                     self.allPages = responseDTO.total_pages
-                    let movies: [Movie] = self.cachedMovies.map { movieDTO in
-                        Movie(id: String(movieDTO.id), title: movieDTO.title, description: movieDTO.overview)
-                    }
-                    completion(.success(movies))
+                    completion(.success(self.cachedMovies.movies))
                 case let .failure(error):
                     completion(.failure(error))
                 }
@@ -71,19 +68,27 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
     }
 }
 
-private enum TMDBPopularMoviesProviderError: Error {
+enum TMDBPopularMoviesProviderError: Error {
     case noMovieMatch, wrongPage
 }
 
-private struct ResponseDTO: Decodable {
-    let results: [MovieDTO]
+struct TMDBPopularMoviesResponseDTO: Decodable {
+    let results: [TMDBPopularMovieDTO]
     let page: Int
     let total_pages: Int
 }
 
-private struct MovieDTO: Decodable {
+struct TMDBPopularMovieDTO: Decodable {
     let id: Int
     let title: String
     let overview: String
     let poster_path: String
+}
+
+private extension Array where Element == TMDBPopularMovieDTO {
+    var movies: [Movie] {
+        map { movieDTO in
+            Movie(id: String(movieDTO.id), title: movieDTO.title, description: movieDTO.overview)
+        }
+    }
 }

@@ -53,7 +53,7 @@ private class PopularMoviesViewModel: ObservableObject {
     init(dependencies: PopularMoviesViewDependencies) {
         self.dependencies = dependencies
 
-        dependencies.popularMoviesUseCase.fetch { result in
+        dependencies.popularMoviesUseCase.fetchNext { result in
             switch result {
             case let .success(movies):
                 self.movies = movies
@@ -64,7 +64,7 @@ private class PopularMoviesViewModel: ObservableObject {
     }
 
     func loadMore() {
-        dependencies.popularMoviesUseCase.fetchMore { result in
+        dependencies.popularMoviesUseCase.fetchNext { result in
             switch result {
             case let .success(movies):
                 self.movies = movies

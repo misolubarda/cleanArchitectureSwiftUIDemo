@@ -55,10 +55,6 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     }
 }
 
-private enum TMDBPopularMoviesProviderError: Error {
-    case noMovieMatch
-}
-
 private struct MovieDetailsDTO: Decodable {
     let title: String
     let overview: String

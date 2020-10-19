@@ -31,6 +31,6 @@ class FileService: FileServiceProtocol {
     }
 }
 
-private enum FileServiceError: Error {
+enum FileServiceError: Error {
     case ambigousResponse
 }

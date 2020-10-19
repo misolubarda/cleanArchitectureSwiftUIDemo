@@ -27,7 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      enableThreadSanitizer = "YES">
+      enableThreadSanitizer = "YES"
+      language = "de"
+      codeCoverageEnabled = "YES">
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "AppleLanguages(de)"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -40,13 +48,43 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "42733B2C253746F500418642"
                BuildableName = "MovieDBUITests.xctest"
                BlueprintName = "MovieDBUITests"
                ReferencedContainer = "container:MovieDB.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "42733BB82537476500418642"
+               BuildableName = "DataLayerTests.xctest"
+               BlueprintName = "DataLayerTests"
+               ReferencedContainer = "container:DataLayer/DataLayer.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "42733B862537475300418642"
+               BuildableName = "DomainLayerTests.xctest"
+               BlueprintName = "DomainLayerTests"
+               ReferencedContainer = "container:DomainLayer/DomainLayer.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "42733B542537473200418642"
+               BuildableName = "UILayerTests.xctest"
+               BlueprintName = "UILayerTests"
+               ReferencedContainer = "container:UILayer/UILayer.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

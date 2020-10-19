@@ -36,6 +36,6 @@ class WebService: WebServiceProtocol {
     }
 }
 
-private enum WebServiceError: Error {
+enum WebServiceError: Error {
     case ambigousResponse
 }
