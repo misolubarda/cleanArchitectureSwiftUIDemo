@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol MovieDetailsProvider {
-    func fetch(forMovieId movieId: String, localized: Bool, completion: @escaping (Result<MovieDetails, Error>) -> Void)
+    func fetch(forMovieId movieId: String, completion: @escaping (Result<MovieDetails, Error>) -> Void)
 }

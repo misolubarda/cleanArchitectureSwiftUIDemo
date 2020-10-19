@@ -10,14 +10,20 @@ import Foundation
 struct TMDBRequest {
     private let baseUrlString = "https://api.themoviedb.org/3"
     private let authParameters = "?" + "api_key=13b51907351de1f890bac01ceb71fbae"
-    let endpoint: Endpoint
+    private let endpoint: Endpoint
+    private let iso639_1: String?
 
-    init(endpoint: Endpoint) {
+    init(endpoint: Endpoint, iso639_1: String?) {
         self.endpoint = endpoint
+        self.iso639_1 = iso639_1
     }
 
     func urlRequest() throws -> URLRequest {
-        let urlString = baseUrlString + "/" + endpoint.path + authParameters + endpoint.parameters
+        var urlString = baseUrlString + "/" + endpoint.path + authParameters + endpoint.parameters
+        if let iso639_1 = iso639_1 {
+            urlString += "&language=\(iso639_1)"
+        }
+
         guard let url = URL(string: urlString) else { throw TMDBRequestError.urlMalformed }
         return URLRequest(url: url)
     }
@@ -27,13 +33,13 @@ struct TMDBRequest {
 extension TMDBRequest {
     enum Endpoint {
         case popularMovies(page: Int)
-        case movieDetails(movieId: String, iso639_1: String?)
+        case movieDetails(movieId: String)
 
         var path: String {
             switch self {
             case .popularMovies:
                 return "movie/popular"
-            case let .movieDetails(movieId, _):
+            case let .movieDetails(movieId):
                 return "movie/\(movieId)"
             }
         }
@@ -42,12 +48,10 @@ extension TMDBRequest {
             switch self {
             case let .popularMovies(page):
                 return "&page=\(page)"
-            case let .movieDetails(_, iso639_1):
-                if let iso639_1 = iso639_1 {
-                    return "&language=\(iso639_1)"
-                }
+            case .movieDetails:
                 return ""
             }
+
         }
     }
 }

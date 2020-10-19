@@ -31,7 +31,6 @@ struct MovieDetailsView: View {
                 Text(viewModel.date)
             }
             .navigationBarTitle(viewModel.title)
-            .navigationBarItems(trailing: Toggle("Lang", isOn: $viewModel.languageToggle))
         }
     }
 }
@@ -51,11 +50,6 @@ private class MovieDetailsViewModel: ObservableObject {
     @Published var title: String = "Loading..."
     @Published var description: String = ""
     @Published var date: String = ""
-    @Published var languageToggle: Bool = false {
-        didSet {
-            load()
-        }
-    }
 
     init(dependencies: MovieDetailsViewDependencies, movieId: String) {
         self.dependencies = dependencies
@@ -64,7 +58,7 @@ private class MovieDetailsViewModel: ObservableObject {
     }
 
     func load() {
-        dependencies.movieDetailsUseCase.fetch(forMovieId: movieId, localized: languageToggle) { [weak self] result in
+        dependencies.movieDetailsUseCase.fetch(forMovieId: movieId) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movieDetails):

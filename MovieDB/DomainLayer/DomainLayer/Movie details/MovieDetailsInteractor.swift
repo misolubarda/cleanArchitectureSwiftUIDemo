@@ -14,7 +14,7 @@ public class MovieDetailsInteractor: MovieDetailsUseCase {
         self.movieDetailsProvider = movieDetailsProvider
     }
 
-    public func fetch(forMovieId movieId: String, localized: Bool, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
-        movieDetailsProvider.fetch(forMovieId: movieId, localized: localized, completion: completion)
+    public func fetch(forMovieId movieId: String, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
+        movieDetailsProvider.fetch(forMovieId: movieId, completion: completion)
     }
 }

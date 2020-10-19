@@ -24,6 +24,7 @@
 		42D4F7CE253B46C300F6F077 /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7CD253B46C300F6F077 /* FileServiceTests.swift */; };
 		42D4F7D5253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7D4253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift */; };
 		42D4F7DB253B4B3A00F6F077 /* FakeWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7DA253B4B3A00F6F077 /* FakeWebService.swift */; };
+		42DDAB83253DF196008B55B7 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB82253DF196008B55B7 /* OrderedSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		42D4F7CD253B46C300F6F077 /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		42D4F7D4253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPopularMoviesProviderTests.swift; sourceTree = "<group>"; };
 		42D4F7DA253B4B3A00F6F077 /* FakeWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeWebService.swift; sourceTree = "<group>"; };
+		42DDAB82253DF196008B55B7 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		42733BB22537476500418642 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				42DDAB81253DF17D008B55B7 /* Conveniences */,
 				42733BDB2537479200418642 /* Networking */,
 				42D4F7922539E30C00F6F077 /* Device info */,
 				42733BE2253747DF00418642 /* TMDBRequest.swift */,
@@ -197,6 +200,14 @@
 			path = Fakes;
 			sourceTree = "<group>";
 		};
+		42DDAB81253DF17D008B55B7 /* Conveniences */ = {
+			isa = PBXGroup;
+			children = (
+				42DDAB82253DF196008B55B7 /* OrderedSet.swift */,
+			);
+			path = Conveniences;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -225,6 +236,8 @@
 			dependencies = (
 			);
 			name = DataLayer;
+			packageProductDependencies = (
+			);
 			productName = DataLayer;
 			productReference = 42733BB02537476500418642 /* DataLayer.framework */;
 			productType = "com.apple.product-type.framework";
@@ -274,6 +287,8 @@
 				Base,
 			);
 			mainGroup = 42733BA62537476500418642;
+			packageReferences = (
+			);
 			productRefGroup = 42733BB12537476500418642 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -310,6 +325,7 @@
 				426C868125389F5E0038BC43 /* TMDBMovieDetailsProvider.swift in Sources */,
 				42733C572537562300418642 /* FileService.swift in Sources */,
 				42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */,
+				42DDAB83253DF196008B55B7 /* OrderedSet.swift in Sources */,
 				42733BE3253747DF00418642 /* TMDBRequest.swift in Sources */,
 				42733BDF253747A400418642 /* WebService.swift in Sources */,
 				42733C1E25374B1200418642 /* TMDBPopularMoviesProvider.swift in Sources */,

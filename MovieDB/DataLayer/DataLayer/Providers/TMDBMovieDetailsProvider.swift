@@ -27,12 +27,11 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
         self.deviceLanguageCode = deviceLanguageCode
     }
 
-    public func fetch(forMovieId movieId: String, localized: Bool, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
+    public func fetch(forMovieId movieId: String, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
         do {
             let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
-            let endpoint = TMDBRequest.Endpoint.movieDetails(movieId: movieId,
-                                                             iso639_1: localized ? languageCode : nil)
-            let request = try TMDBRequest(endpoint: endpoint).urlRequest()
+            let endpoint = TMDBRequest.Endpoint.movieDetails(movieId: movieId)
+            let request = try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
 
             webService.execute(request: request) { [weak self] (result: Result<MovieDetailsDTO, Error>) in
                 guard let self = self else { return }
