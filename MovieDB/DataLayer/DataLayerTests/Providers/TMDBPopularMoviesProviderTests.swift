@@ -10,19 +10,21 @@ import XCTest
 import DomainLayer
 
 final class TMDBPopularMoviesProviderTests: XCTestCase {
-    private var fakeWebService: FakeWebService!
+    private var webServiceFake: WebServiceFake!
+    private var deviceLanguageCodeFake: DeviceLanguageCodeFake!
     private var tmdbPopularMoviesProvider: TMDBPopularMoviesProvider!
 
     override func setUp() {
         super.setUp()
 
-        fakeWebService = FakeWebService()
-        fakeWebService.result = response1
-        tmdbPopularMoviesProvider = TMDBPopularMoviesProvider(webService: fakeWebService)
+        webServiceFake = WebServiceFake()
+        webServiceFake.result = responseForPage1
+        deviceLanguageCodeFake = DeviceLanguageCodeFake()
+        tmdbPopularMoviesProvider = TMDBPopularMoviesProvider(webService: webServiceFake, deviceLanguageCode: deviceLanguageCodeFake)
     }
 
     override func tearDown() {
-        fakeWebService = nil
+        webServiceFake = nil
         tmdbPopularMoviesProvider = nil
 
         super.tearDown()
@@ -33,7 +35,16 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
 
         tmdbPopularMoviesProvider.fetchNext { _ in }
 
-        XCTAssertEqual(fakeWebService.request?.url?.absoluteString, expectedUrlString)
+        XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
+    }
+
+    func testFetchNext_whenRequestingForSpecificLanguage_requestIsConstructedCorrectly() {
+        deviceLanguageCodeFake.languageCode = "someCode"
+        let expectedUrlString = "https://api.themoviedb.org/3/movie/popular?api_key=13b51907351de1f890bac01ceb71fbae&page=1&language=someCode"
+
+        tmdbPopularMoviesProvider.fetchNext { _ in }
+
+        XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
     }
 
     func testFetchNext_whenRequestingAgain_pageNumberIsEncreased() {
@@ -42,13 +53,22 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
 
         tmdbPopularMoviesProvider.fetchNext { _ in }
 
-        XCTAssertEqual(fakeWebService.request?.url?.absoluteString, expectedUrlString)
+        XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
+    }
+
+    func testFetchNext_onFirstRequest_returnsCoorectResultCount() {
+        var result: Result<[Movie], Error>?
+        tmdbPopularMoviesProvider.fetchNext { _result in
+            result = _result
+        }
+
+        XCTAssertEqual(try result?.get().count, 1)
     }
 
     func testFetchNext_whenPageNumberIncreasesBy1_appendsTheSecondResponse() {
-        fakeWebService.result = response1
+        webServiceFake.result = responseForPage1
         tmdbPopularMoviesProvider.fetchNext { _ in }
-        fakeWebService.result = response2
+        webServiceFake.result = responseForPage2
 
         var result: Result<[Movie], Error>?
         tmdbPopularMoviesProvider.fetchNext { _result in
@@ -58,22 +78,39 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         XCTAssertEqual(try result?.get().count, 2)
     }
 
-    func testFetch_callingItTwice_returningTheSamePage_failsWithWrongPage() {
-        fakeWebService.result = response1
+    func testFetch_callingItTwice_returningTheSamePage_returnsUnchangedResult() {
+        // given
+        webServiceFake.result = responseForPage1
         tmdbPopularMoviesProvider.fetchNext { _ in }
-        fakeWebService.result = response1
+        webServiceFake.result = responseForPage1
 
+        // when
         var result: Result<[Movie], Error>?
         tmdbPopularMoviesProvider.fetchNext { _result in
             result = _result
         }
 
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? TMDBPopularMoviesProviderError, .wrongPage)
-        }
+        // then
+        XCTAssertEqual(try result?.get().count, 1)
     }
 
-    private var response1: TMDBPopularMoviesResponseDTO {
+    func testFetch_whenNextPageExceedsAllPagesCount_returnsUnchangedResult() {
+        // given
+        webServiceFake.result = responseForPage1AllPagesCount1
+        tmdbPopularMoviesProvider.fetchNext { _ in }
+        webServiceFake.result = responseForPage2AllPagesCount1
+
+        // when
+        var result: Result<[Movie], Error>?
+        tmdbPopularMoviesProvider.fetchNext { _result in
+            result = _result
+        }
+
+        // then
+        XCTAssertEqual(try result?.get().count, 1)
+    }
+
+    private var responseForPage1: TMDBPopularMoviesResponseDTO {
         let movie = TMDBPopularMovieDTO(id: 1,
                                         title: "title",
                                         overview: "overview",
@@ -83,13 +120,33 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
                                             total_pages: 10)
     }
 
-    private var response2: TMDBPopularMoviesResponseDTO {
-        let movie = TMDBPopularMovieDTO(id: 1,
+    private var responseForPage2: TMDBPopularMoviesResponseDTO {
+        let movie = TMDBPopularMovieDTO(id: 2,
                                         title: "title",
                                         overview: "overview",
                                         poster_path: "posterPath")
         return TMDBPopularMoviesResponseDTO(results: [movie],
                                             page: 2,
                                             total_pages: 10)
+    }
+
+    private var responseForPage1AllPagesCount1: TMDBPopularMoviesResponseDTO {
+        let movie = TMDBPopularMovieDTO(id: 1,
+                                        title: "title",
+                                        overview: "overview",
+                                        poster_path: "posterPath")
+        return TMDBPopularMoviesResponseDTO(results: [movie],
+                                            page: 1,
+                                            total_pages: 1)
+    }
+
+    private var responseForPage2AllPagesCount1: TMDBPopularMoviesResponseDTO {
+        let movie = TMDBPopularMovieDTO(id: 2,
+                                        title: "title",
+                                        overview: "overview",
+                                        poster_path: "posterPath")
+        return TMDBPopularMoviesResponseDTO(results: [movie],
+                                            page: 2,
+                                            total_pages: 1)
     }
 }

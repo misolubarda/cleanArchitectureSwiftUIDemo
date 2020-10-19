@@ -26,27 +26,14 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
     }
 
     public func fetchNext(completion: @escaping (Result<[Movie], Error>) -> Void) {
-        fetch(page: currentPage + 1, completion: completion)
-    }
-
-    public func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void) {
-        DispatchQueue.main.async {
-            if let matchedMovieDTO = self.cachedMovies.first(where: { String($0.id) == movieId }) {
-                completion(.success(matchedMovieDTO.poster_path))
-            } else {
-                completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
-            }
-        }
-    }
-
-    private func fetch(page: Int, completion: @escaping (Result<[Movie], Error>) -> Void) {
         do {
-            if let allPages = allPages, currentPage >= allPages {
+            let nextPage = currentPage + 1
+            if let allPages = allPages, nextPage >= allPages {
                 completion(.success(cachedMovies.movies))
                 return
             }
 
-            let endpoint = TMDBRequest.Endpoint.popularMovies(page: page)
+            let endpoint = TMDBRequest.Endpoint.popularMovies(page: nextPage)
             let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
             let request = try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
 
@@ -67,11 +54,23 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
         } catch {
             completion(.failure(error))
         }
+
     }
+
+    public func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        DispatchQueue.main.async {
+            if let matchedMovieDTO = self.cachedMovies.first(where: { String($0.id) == movieId }) {
+                completion(.success(matchedMovieDTO.poster_path))
+            } else {
+                completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
+            }
+        }
+    }
+
 }
 
 enum TMDBPopularMoviesProviderError: Error {
-    case noMovieMatch, wrongPage
+    case noMovieMatch
 }
 
 struct TMDBPopularMoviesResponseDTO: Decodable {

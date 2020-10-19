@@ -23,8 +23,9 @@
 		42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7C9253B439900F6F077 /* NetworkSessionTests.swift */; };
 		42D4F7CE253B46C300F6F077 /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7CD253B46C300F6F077 /* FileServiceTests.swift */; };
 		42D4F7D5253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7D4253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift */; };
-		42D4F7DB253B4B3A00F6F077 /* FakeWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7DA253B4B3A00F6F077 /* FakeWebService.swift */; };
+		42D4F7DB253B4B3A00F6F077 /* WebServiceFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7DA253B4B3A00F6F077 /* WebServiceFake.swift */; };
 		42DDAB83253DF196008B55B7 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB82253DF196008B55B7 /* OrderedSet.swift */; };
+		42DDAB87253DF77D008B55B7 /* DeviceLanguageCodeFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +71,9 @@
 		42D4F7C9253B439900F6F077 /* NetworkSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionTests.swift; sourceTree = "<group>"; };
 		42D4F7CD253B46C300F6F077 /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		42D4F7D4253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPopularMoviesProviderTests.swift; sourceTree = "<group>"; };
-		42D4F7DA253B4B3A00F6F077 /* FakeWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeWebService.swift; sourceTree = "<group>"; };
+		42D4F7DA253B4B3A00F6F077 /* WebServiceFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceFake.swift; sourceTree = "<group>"; };
 		42DDAB82253DF196008B55B7 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
+		42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLanguageCodeFake.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +197,8 @@
 		42D4F7D9253B4B2700F6F077 /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
-				42D4F7DA253B4B3A00F6F077 /* FakeWebService.swift */,
+				42D4F7DA253B4B3A00F6F077 /* WebServiceFake.swift */,
+				42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -340,8 +343,9 @@
 			files = (
 				42D4F7CE253B46C300F6F077 /* FileServiceTests.swift in Sources */,
 				42D4F7C5253B42F800F6F077 /* WebServiceTests.swift in Sources */,
+				42DDAB87253DF77D008B55B7 /* DeviceLanguageCodeFake.swift in Sources */,
 				42D4F7D5253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift in Sources */,
-				42D4F7DB253B4B3A00F6F077 /* FakeWebService.swift in Sources */,
+				42D4F7DB253B4B3A00F6F077 /* WebServiceFake.swift in Sources */,
 				42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

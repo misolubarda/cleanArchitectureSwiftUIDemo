@@ -1,5 +1,5 @@
 //
-//  FakeWebService.swift
+//  WebServiceFake.swift
 //  DataLayerTests
 //
 //  Created by Miso Lubarda on 17.10.20.
@@ -8,7 +8,7 @@
 import Foundation
 @testable import DataLayer
 
-class FakeWebService: WebServiceProtocol {
+class WebServiceFake: WebServiceProtocol {
     var request: URLRequest?
     var result: Decodable?
     var error: Error?
