@@ -12,7 +12,13 @@ import UILayer
 struct MovieDBApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView(dependencies: AppDependencies())
+            if isTestTarget {
+                Spacer()
+            } else {
+                MainView(dependencies: AppDependencies())
+            }
         }
     }
 }
+
+private var isTestTarget: Bool { NSClassFromString("MovieDBTests.MovieDBTests") != nil }
