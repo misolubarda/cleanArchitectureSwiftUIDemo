@@ -31,6 +31,7 @@ struct MovieDetailsView: View {
                 Text(viewModel.date)
             }
             .navigationBarTitle(viewModel.title)
+            .onAppear(perform: viewModel.load)
         }
     }
 }
@@ -54,7 +55,6 @@ private class MovieDetailsViewModel: ObservableObject {
     init(dependencies: MovieDetailsViewDependencies, movieId: String) {
         self.dependencies = dependencies
         self.movieId = movieId
-        load()
     }
 
     func load() {
