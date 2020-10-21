@@ -21,8 +21,9 @@ struct TMDBImageRequest {
     }
 
     func urlRequest() throws -> URLRequest {
-        let urlString = baseUrlString + "/" + imageSize.rawValue + imageName
-        guard let url = URL(string: urlString) else { throw TMDBImageRequestError.urlMalformed }
+        guard var url = URL(string: baseUrlString) else { throw TMDBImageRequestError.urlMalformed }
+        url.appendPathComponent(imageSize.rawValue)
+        url.appendPathComponent(imageName)
         return URLRequest(url: url)
     }
 }

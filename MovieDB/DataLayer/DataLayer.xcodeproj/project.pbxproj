@@ -18,6 +18,7 @@
 		42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C3D2537535900418642 /* TMDBImageRequest.swift */; };
 		42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C53253755D100418642 /* TMDBPosterImageProvider.swift */; };
 		42733C572537562300418642 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C562537562300418642 /* FileService.swift */; };
+		42734899253F0367008CA995 /* FileServiceFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42734898253F0367008CA995 /* FileServiceFake.swift */; };
 		42D4F7A52539E63400F6F077 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7932539E36F00F6F077 /* DeviceInfo.swift */; };
 		42D4F7C5253B42F800F6F077 /* WebServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7C4253B42F800F6F077 /* WebServiceTests.swift */; };
 		42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7C9253B439900F6F077 /* NetworkSessionTests.swift */; };
@@ -26,6 +27,7 @@
 		42D4F7DB253B4B3A00F6F077 /* WebServiceFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7DA253B4B3A00F6F077 /* WebServiceFake.swift */; };
 		42DDAB83253DF196008B55B7 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB82253DF196008B55B7 /* OrderedSet.swift */; };
 		42DDAB87253DF77D008B55B7 /* DeviceLanguageCodeFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */; };
+		42EB6AD8253F02B900C18A0F /* TMDBPosterImageProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,7 @@
 		42733C3D2537535900418642 /* TMDBImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBImageRequest.swift; sourceTree = "<group>"; };
 		42733C53253755D100418642 /* TMDBPosterImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPosterImageProvider.swift; sourceTree = "<group>"; };
 		42733C562537562300418642 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		42734898253F0367008CA995 /* FileServiceFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceFake.swift; sourceTree = "<group>"; };
 		42D4F7932539E36F00F6F077 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		42D4F7C4253B42F800F6F077 /* WebServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceTests.swift; sourceTree = "<group>"; };
 		42D4F7C9253B439900F6F077 /* NetworkSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionTests.swift; sourceTree = "<group>"; };
@@ -74,6 +77,7 @@
 		42D4F7DA253B4B3A00F6F077 /* WebServiceFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceFake.swift; sourceTree = "<group>"; };
 		42DDAB82253DF196008B55B7 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLanguageCodeFake.swift; sourceTree = "<group>"; };
+		42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPosterImageProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				42D4F7D4253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift */,
+				42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 			children = (
 				42D4F7DA253B4B3A00F6F077 /* WebServiceFake.swift */,
 				42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */,
+				42734898253F0367008CA995 /* FileServiceFake.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -341,11 +347,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42734899253F0367008CA995 /* FileServiceFake.swift in Sources */,
 				42D4F7CE253B46C300F6F077 /* FileServiceTests.swift in Sources */,
 				42D4F7C5253B42F800F6F077 /* WebServiceTests.swift in Sources */,
 				42DDAB87253DF77D008B55B7 /* DeviceLanguageCodeFake.swift in Sources */,
 				42D4F7D5253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift in Sources */,
 				42D4F7DB253B4B3A00F6F077 /* WebServiceFake.swift in Sources */,
+				42EB6AD8253F02B900C18A0F /* TMDBPosterImageProviderTests.swift in Sources */,
 				42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

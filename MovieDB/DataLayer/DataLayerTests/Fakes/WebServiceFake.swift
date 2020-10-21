@@ -10,8 +10,8 @@ import Foundation
 
 class WebServiceFake: WebServiceProtocol {
     var request: URLRequest?
-    var result: Decodable?
-    var error: Error?
+    var result: Decodable!
+    var error: Error!
 
     func execute<D>(request: URLRequest, completion: @escaping (Result<D, Error>) -> Void) where D : Decodable {
         self.request = request
