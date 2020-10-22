@@ -69,7 +69,8 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
 
     func testFetch_whenWebServiceFailure_FailsWithCorrectError() {
         // given
-        webServiceFake.error = FakeError.someError
+        let expectedError = FakeError.someError
+        webServiceFake.error = expectedError
 
         // when
         var result: Result<MovieDetails, Error>?
@@ -79,7 +80,7 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
 
         // then
         XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, .someError)
+            XCTAssertEqual(error as? FakeError, expectedError)
         }
     }
 

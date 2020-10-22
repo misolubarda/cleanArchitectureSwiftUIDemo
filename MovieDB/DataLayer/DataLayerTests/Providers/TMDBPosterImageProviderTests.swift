@@ -71,7 +71,8 @@ final class TMDBPosterImageProviderTests: XCTestCase {
 
     func testFetchNext_whenWebServiceFailsWithError_failsWithCorrectError() {
         // given
-        fileServiceFake.error = FakeError.someError
+        let expectedError = FakeError.someError
+        fileServiceFake.error = expectedError
 
         // when
         var result: Result<Data, Error>?
@@ -81,7 +82,7 @@ final class TMDBPosterImageProviderTests: XCTestCase {
 
         // then
         XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, .someError)
+            XCTAssertEqual(error as? FakeError, expectedError)
         }
     }
 }
