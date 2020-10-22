@@ -28,6 +28,7 @@
 		42DDAB83253DF196008B55B7 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB82253DF196008B55B7 /* OrderedSet.swift */; };
 		42DDAB87253DF77D008B55B7 /* DeviceLanguageCodeFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */; };
 		42EB6AD8253F02B900C18A0F /* TMDBPosterImageProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */; };
+		42FF3D6C25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF3D6B25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		42DDAB82253DF196008B55B7 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		42DDAB86253DF77D008B55B7 /* DeviceLanguageCodeFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLanguageCodeFake.swift; sourceTree = "<group>"; };
 		42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPosterImageProviderTests.swift; sourceTree = "<group>"; };
+		42FF3D6B25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBMovieDetailsProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				42D4F7D4253B4AC300F6F077 /* TMDBPopularMoviesProviderTests.swift */,
 				42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */,
+				42FF3D6B25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				42D4F7DB253B4B3A00F6F077 /* WebServiceFake.swift in Sources */,
 				42EB6AD8253F02B900C18A0F /* TMDBPosterImageProviderTests.swift in Sources */,
 				42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */,
+				42FF3D6C25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

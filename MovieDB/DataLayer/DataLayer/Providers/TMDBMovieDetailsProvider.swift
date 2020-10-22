@@ -33,15 +33,15 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
             let endpoint = TMDBRequest.Endpoint.movieDetails(movieId: movieId)
             let request = try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
 
-            webService.execute(request: request) { [weak self] (result: Result<MovieDetailsDTO, Error>) in
+            webService.execute(request: request) { [weak self] (result: Result<TMDBMovieDetailsResponseDTO, Error>) in
                 guard let self = self else { return }
                 switch result {
-                case let .success(movieDetailsDTO):
-                    let releaseDate = self.dateForamtter.date(from: movieDetailsDTO.release_date)
-                    let movieDetails = MovieDetails(title: movieDetailsDTO.title,
-                                                     description: movieDetailsDTO.overview,
+                case let .success(response):
+                    let releaseDate = self.dateForamtter.date(from: response.release_date)
+                    let movieDetails = MovieDetails(title: response.title,
+                                                     description: response.overview,
                                                      releaseDate: releaseDate,
-                                                     rating: movieDetailsDTO.vote_average)
+                                                     rating: response.vote_average)
 
                     completion(.success(movieDetails))
                 case let .failure(error):
@@ -54,7 +54,7 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     }
 }
 
-private struct MovieDetailsDTO: Decodable {
+struct TMDBMovieDetailsResponseDTO: Decodable {
     let title: String
     let overview: String
     let release_date: String
