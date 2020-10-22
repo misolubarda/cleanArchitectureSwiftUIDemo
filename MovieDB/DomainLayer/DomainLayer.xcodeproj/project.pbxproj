@@ -20,6 +20,7 @@
 		42733C4E2537556300418642 /* PosterImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C4D2537556300418642 /* PosterImageProvider.swift */; };
 		42733C5A25375A1300418642 /* PosterImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C5925375A1300418642 /* PosterImageInteractor.swift */; };
 		427C24362541848700F6DD8A /* MovieDetailsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C24352541848700F6DD8A /* MovieDetailsInteractorTests.swift */; };
+		427C2441254191F700F6DD8A /* PosterImageInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C2440254191F700F6DD8A /* PosterImageInteractorTests.swift */; };
 		42D4F78E2539D4CA00F6F077 /* PosterNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F78D2539D4CA00F6F077 /* PosterNameProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		42733C4D2537556300418642 /* PosterImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageProvider.swift; sourceTree = "<group>"; };
 		42733C5925375A1300418642 /* PosterImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageInteractor.swift; sourceTree = "<group>"; };
 		427C24352541848700F6DD8A /* MovieDetailsInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractorTests.swift; sourceTree = "<group>"; };
+		427C2440254191F700F6DD8A /* PosterImageInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageInteractorTests.swift; sourceTree = "<group>"; };
 		42D4F78D2539D4CA00F6F077 /* PosterNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterNameProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				427C24352541848700F6DD8A /* MovieDetailsInteractorTests.swift */,
+				427C2440254191F700F6DD8A /* PosterImageInteractorTests.swift */,
 				42733B8E2537475300418642 /* Info.plist */,
 			);
 			path = DomainLayerTests;
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				427C2441254191F700F6DD8A /* PosterImageInteractorTests.swift in Sources */,
 				427C24362541848700F6DD8A /* MovieDetailsInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
