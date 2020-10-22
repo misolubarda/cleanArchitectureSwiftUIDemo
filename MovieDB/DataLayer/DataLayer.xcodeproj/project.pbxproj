@@ -127,10 +127,8 @@
 				42DDAB81253DF17D008B55B7 /* Conveniences */,
 				42733BDB2537479200418642 /* Networking */,
 				42D4F7922539E30C00F6F077 /* Device info */,
-				42733BE2253747DF00418642 /* TMDBRequest.swift */,
-				42733C3D2537535900418642 /* TMDBImageRequest.swift */,
-				42733BB42537476500418642 /* Info.plist */,
 				42733C51253755B900418642 /* Providers */,
+				42733BB42537476500418642 /* Info.plist */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -149,6 +147,8 @@
 		42733BDB2537479200418642 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				42733BE2253747DF00418642 /* TMDBRequest.swift */,
+				42733C3D2537535900418642 /* TMDBImageRequest.swift */,
 				42733BDC253747A400418642 /* NetworkSession.swift */,
 				42733BDD253747A400418642 /* WebService.swift */,
 				42733C562537562300418642 /* FileService.swift */,
