@@ -28,7 +28,7 @@ final class FIFOCache<Key, Value> where Key: Hashable {
     }
 
     func value(forKey key: Key) -> Value? {
-        return cache.first(where: { $0.key == key })?.value
+        return cache[key]
     }
 
     func append(_ item: Item) {

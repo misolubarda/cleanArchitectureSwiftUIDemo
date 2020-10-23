@@ -27,8 +27,8 @@ struct MovieListItemView: View {
                 Spacer()
                 Image(uiImage: viewModel.image ?? UIImage())
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100, height: 200)
                     .onAppear(perform: viewModel.load)
                 Spacer()
             }
