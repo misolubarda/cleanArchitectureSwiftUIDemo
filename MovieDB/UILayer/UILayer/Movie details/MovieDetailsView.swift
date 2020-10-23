@@ -30,6 +30,7 @@ struct MovieDetailsView: View {
                 Spacer()
                 Text(viewModel.date)
             }
+            .padding()
             .navigationBarTitle(viewModel.title)
             .onAppear(perform: viewModel.load)
         }

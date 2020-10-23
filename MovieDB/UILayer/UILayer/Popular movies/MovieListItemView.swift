@@ -23,11 +23,6 @@ struct MovieListItemView: View {
 
     var body: some View {
         VStack {
-            Text("\(title)")
-                .font(.headline)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-            Spacer()
             HStack {
                 Spacer()
                 Image(uiImage: viewModel.image ?? UIImage())
@@ -37,6 +32,11 @@ struct MovieListItemView: View {
                     .onAppear(perform: viewModel.load)
                 Spacer()
             }
+            Spacer()
+            Text("\(title)")
+                .font(.headline)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
         }
     }
 }
