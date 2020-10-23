@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol WebServiceProtocol {
+protocol WebService {
     func execute<D>(request: URLRequest, completion: @escaping (_ result: Result<D, Error>) -> Void) where D: Decodable
 }
 
-class WebService: WebServiceProtocol {
-    private let networkSession: NetworkSessionProtocol
+class TMDBWebService: WebService {
+    private let networkSession: NetworkSession
 
-    init(networkSession: NetworkSessionProtocol = NetworkSession()) {
+    init(networkSession: NetworkSession = DataNetworkSession()) {
         self.networkSession = networkSession
     }
 

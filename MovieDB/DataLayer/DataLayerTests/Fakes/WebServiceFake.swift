@@ -8,7 +8,7 @@
 import Foundation
 @testable import DataLayer
 
-class WebServiceFake: WebServiceProtocol {
+class WebServiceFake: WebService {
     var request: URLRequest?
     var result: Decodable!
     var error: Error!

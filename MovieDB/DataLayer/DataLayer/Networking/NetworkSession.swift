@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NetworkSession.swift
 //  
 //
 //  Created by Miso Lubarda on 24.09.20.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol NetworkSessionProtocol {
+protocol NetworkSession {
     func perform(with request: URLRequest, completionHandler: @escaping (_ data: Data?, _ httpResponse: URLResponse?, _ error: Error?) -> Void)
 }
 
-class NetworkSession: NetworkSessionProtocol {
+class DataNetworkSession: NetworkSession {
     func perform(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {

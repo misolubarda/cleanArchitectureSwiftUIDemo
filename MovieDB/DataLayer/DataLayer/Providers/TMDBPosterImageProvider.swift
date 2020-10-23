@@ -9,14 +9,14 @@ import Foundation
 import DomainLayer
 
 public class TMDBPosterImageProvider: PosterImageProvider {
-    private let fileService: FileServiceProtocol
+    private let fileService: FileService
     private var imageCache = FIFOCache<String, Data>(maxItems: 50)
 
     public convenience init() {
-        self.init(fileService: FileService())
+        self.init(fileService: TMDBFileService())
     }
 
-    init(fileService: FileServiceProtocol) {
+    init(fileService: FileService) {
         self.fileService = fileService
     }
 

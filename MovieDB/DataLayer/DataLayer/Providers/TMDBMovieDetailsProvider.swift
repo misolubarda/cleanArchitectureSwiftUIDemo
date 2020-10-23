@@ -9,7 +9,7 @@ import Foundation
 import DomainLayer
 
 public class TMDBMovieDetailsProvider: MovieDetailsProvider {
-    private let webService: WebServiceProtocol
+    private let webService: WebService
     private let deviceLanguageCode: DeviceLanguageCode
 
     private lazy var dateForamtter: DateFormatter = {
@@ -19,10 +19,10 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     }()
 
     public convenience init() {
-        self.init(webService: WebService(), deviceLanguageCode: DeviceInfo())
+        self.init(webService: TMDBWebService(), deviceLanguageCode: DeviceInfo())
     }
 
-    init(webService: WebServiceProtocol, deviceLanguageCode: DeviceLanguageCode) {
+    init(webService: WebService, deviceLanguageCode: DeviceLanguageCode) {
         self.webService = webService
         self.deviceLanguageCode = deviceLanguageCode
     }

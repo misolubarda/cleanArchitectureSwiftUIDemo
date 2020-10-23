@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol FileServiceProtocol {
+protocol FileService {
     func execute(request: URLRequest, completion: @escaping (_ result: Result<Data, Error>) -> Void)
 }
 
-class FileService: FileServiceProtocol {
-    private let networkSession: NetworkSessionProtocol
+class TMDBFileService: FileService {
+    private let networkSession: NetworkSession
 
-    init(networkSession: NetworkSessionProtocol = NetworkSession()) {
+    init(networkSession: NetworkSession = DataNetworkSession()) {
         self.networkSession = networkSession
     }
 

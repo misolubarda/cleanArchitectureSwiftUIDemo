@@ -12,7 +12,7 @@ import XCTest
 
 final class NetworkSessionTests: XCTestCase {
     func testPerform_whenNotOnMainThread_completesOnMainThread() {
-        let session = NetworkSession()
+        let session = DataNetworkSession()
         let urlRequest = URLRequest(url: URL(string: "http://failableUrl.localhost")!)
         let expectation = XCTestExpectation()
 

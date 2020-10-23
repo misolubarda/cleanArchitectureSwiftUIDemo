@@ -8,7 +8,7 @@
 import Foundation
 @testable import DataLayer
 
-class FileServiceFake: FileServiceProtocol {
+class FileServiceFake: FileService {
     var request: URLRequest?
     var result: Data!
     var error: Error!

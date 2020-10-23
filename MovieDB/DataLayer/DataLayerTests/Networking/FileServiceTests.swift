@@ -14,7 +14,7 @@ final class FileServiceTests: XCTestCase {
         let fakeNetworkService = FakeNetworkService()
         fakeNetworkService.data = expectedData
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let fileService = FileService(networkSession: fakeNetworkService)
+        let fileService = TMDBFileService(networkSession: fakeNetworkService)
 
         var result: Result<Data, Error>?
         fileService.execute(request: fakeRequest) { _result in
@@ -31,7 +31,7 @@ final class FileServiceTests: XCTestCase {
         let fakeNetworkService = FakeNetworkService()
         fakeNetworkService.error = expectedError
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let fileService = FileService(networkSession: fakeNetworkService)
+        let fileService = TMDBFileService(networkSession: fakeNetworkService)
 
         var result: Result<Data, Error>?
         fileService.execute(request: fakeRequest) { _result in
@@ -47,7 +47,7 @@ final class FileServiceTests: XCTestCase {
     func testExecute_whenDataNorErrorIsPresent_failsWithCorrectError() {
         let fakeNetworkService = FakeNetworkService()
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let fileService = FileService(networkSession: fakeNetworkService)
+        let fileService = TMDBFileService(networkSession: fakeNetworkService)
 
         var result: Result<Data, Error>?
         fileService.execute(request: fakeRequest) { _result in
@@ -61,7 +61,7 @@ final class FileServiceTests: XCTestCase {
     }
 }
 
-private class FakeNetworkService: NetworkSessionProtocol {
+private class FakeNetworkService: NetworkSession {
     var data: Data?
     var error: Error?
 

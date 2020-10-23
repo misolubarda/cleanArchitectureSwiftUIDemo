@@ -13,7 +13,7 @@ final class WebServiceTests: XCTestCase {
         let fakeNetworkService = FakeNetworkService()
         fakeNetworkService.data = try! JSONEncoder().encode(expectedResult)
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = WebService(networkSession: fakeNetworkService)
+        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
         var result: Result<FakeDTO, Error>?
         webService.execute(request: fakeRequest) { (_result: Result<FakeDTO, Error>) in
@@ -28,7 +28,7 @@ final class WebServiceTests: XCTestCase {
         let fakeNetworkService = FakeNetworkService()
         fakeNetworkService.data = "blabla".data(using: .utf8)
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = WebService(networkSession: fakeNetworkService)
+        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
         var result: Result<FakeDTO, Error>?
         webService.execute(request: fakeRequest) { (_result: Result<FakeDTO, Error>) in
@@ -46,7 +46,7 @@ final class WebServiceTests: XCTestCase {
         let fakeNetworkService = FakeNetworkService()
         fakeNetworkService.error = expectedError
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = WebService(networkSession: fakeNetworkService)
+        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
         var result: Result<Data, Error>?
         webService.execute(request: fakeRequest) { _result in
@@ -62,7 +62,7 @@ final class WebServiceTests: XCTestCase {
     func testExecute_whenDataIsNotPresent_failsWithCorrectError() {
         let fakeNetworkService = FakeNetworkService()
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = WebService(networkSession: fakeNetworkService)
+        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
         var result: Result<FakeDTO, Error>?
         webService.execute(request: fakeRequest) { (_result: Result<FakeDTO, Error>) in
@@ -76,7 +76,7 @@ final class WebServiceTests: XCTestCase {
     }
 }
 
-private class FakeNetworkService: NetworkSessionProtocol {
+private class FakeNetworkService: NetworkSession {
     var data: Data?
     var error: Error?
 
