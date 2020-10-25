@@ -25,16 +25,21 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
     }
 
     var body: some View {
-        VStack {
-            NavigationView {
-                List(viewModel.movies, id: \.id) { movie in
-                    NavigationLink(destination: detailsView(movie.id)) {
+        NavigationView {
+            List {
+//              https://stackoverflow.com/questions/56614080/how-to-remove-the-left-and-right-padding-of-a-list-in-swiftui
+                ForEach(viewModel.movies, id: \.id) { movie in
+                    ZStack {
                         MovieListItemView(dependencies: dependencies, id: movie.id, title: movie.title)
+                            .onAppear { viewModel.moveIdAppeared = movie.id }
+                        NavigationLink(destination: detailsView(movie.id), label: EmptyView.init)
+                            .buttonStyle(PlainButtonStyle())
                     }
-                    .onAppear { viewModel.moveIdAppeared = movie.id }
+//                   https://stackoverflow.com/questions/56614080/how-to-remove-the-left-and-right-padding-of-a-list-in-swiftui
+                    .listRowInsets(EdgeInsets())
                 }
-                .navigationBarTitle("Popular movies")
             }
+            .navigationBarTitle("Popular movies")
         }
     }
 }

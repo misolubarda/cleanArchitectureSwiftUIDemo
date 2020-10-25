@@ -23,20 +23,21 @@ struct MovieListItemView: View {
 
     var body: some View {
         VStack {
+            Spacer().frame(height: 30)
             HStack {
-                Spacer()
+                Spacer().frame(width: 60)
                 Image(uiImage: viewModel.image ?? UIImage())
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 200)
+                    .aspectRatio(viewModel.imageSize, contentMode: .fill)
                     .onAppear(perform: viewModel.load)
-                Spacer()
+                Spacer().frame(width: 60)
             }
-            Spacer()
+            Spacer().frame(height: 10)
             Text("\(title)")
                 .font(.headline)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
+            Spacer().frame(height: 30)
         }
     }
 }
@@ -46,6 +47,7 @@ private class MovieListItemViewModel: ObservableObject {
     private let movieId: String
 
     @Published var image: UIImage?
+    @Published var imageSize: CGSize = CGSize(width: 300, height: 400)
 
     init(dependencies: MovieListItemViewDependencies, movieId: String) {
         self.dependencies = dependencies
@@ -56,7 +58,10 @@ private class MovieListItemViewModel: ObservableObject {
         dependencies.posterImageUseCase.fetch(movieId: movieId) { result in
             switch result {
             case let .success(data):
-                self.image = UIImage(data: data) ?? UIImage()
+                if let image = UIImage(data: data) {
+                    self.image = image
+                    self.imageSize = image.size
+                }
             case .failure:
                 self.image = nil
             }
