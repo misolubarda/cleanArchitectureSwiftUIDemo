@@ -44,8 +44,9 @@ struct MovieDetailsView: View {
                     .modifier(TextPrimary())
                     .font(.body)
             }
-            .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+            .padding(.init(top: 20, leading: 20, bottom: 0, trailing: 20))
             .background(Color.navigationBar)
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: viewModel.load)
         }
     }

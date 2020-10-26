@@ -39,6 +39,7 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
                 }
             }
             .navigationBarTitle("Popular movies")
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: viewModel.loadMore)
         }
     }
