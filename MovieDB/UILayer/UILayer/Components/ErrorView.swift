@@ -12,7 +12,6 @@ struct ErrorView: View {
 
     var body: some View {
         Text(errorText)
-//            .foregroundColor(.red)
             .font(.callout)
     }
 }

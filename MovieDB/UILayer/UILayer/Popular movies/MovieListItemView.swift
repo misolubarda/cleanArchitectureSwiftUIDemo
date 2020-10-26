@@ -19,6 +19,7 @@ struct MovieListItemView: View {
     init(dependencies: MovieListItemViewDependencies, id: String, title: String) {
         viewModel = MovieListItemViewModel(dependencies: dependencies, movieId: id)
         self.title = title
+        viewModel.load()
     }
 
     var body: some View {
@@ -29,11 +30,11 @@ struct MovieListItemView: View {
                 Image(uiImage: viewModel.image ?? UIImage())
                     .resizable()
                     .aspectRatio(viewModel.imageSize, contentMode: .fill)
-                    .onAppear(perform: viewModel.load)
                 Spacer().frame(width: 60)
             }
             Spacer().frame(height: 10)
             Text("\(title)")
+                .modifier(TextPrimary())
                 .font(.headline)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
@@ -55,7 +56,8 @@ private class MovieListItemViewModel: ObservableObject {
     }
 
     func load() {
-        dependencies.posterImageUseCase.fetch(movieId: movieId) { result in
+        dependencies.posterImageUseCase.fetch(movieId: movieId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case let .success(data):
                 if let image = UIImage(data: data) {

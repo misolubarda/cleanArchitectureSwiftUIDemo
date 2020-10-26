@@ -27,29 +27,30 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
     var body: some View {
         NavigationView {
             List {
-//              https://stackoverflow.com/questions/56614080/how-to-remove-the-left-and-right-padding-of-a-list-in-swiftui
-                ForEach(viewModel.movies, id: \.id) { movie in
+                ForEach(viewModel.listItems, id: \.movieId) { listItem in // *Bug fix
                     ZStack {
-                        MovieListItemView(dependencies: dependencies, id: movie.id, title: movie.title)
-                            .onAppear { viewModel.moveIdAppeared = movie.id }
-                        NavigationLink(destination: detailsView(movie.id), label: EmptyView.init)
-                            .buttonStyle(PlainButtonStyle())
+                        MovieListItemView(dependencies: dependencies, id: listItem.movieId, title: listItem.title)
+                            .background(listItem.backgroundColor)
+                            .onAppear { viewModel.moveIdAppeared = listItem.movieId }
+                        NavigationLink(destination: detailsView(listItem.movieId), label: EmptyView.init)
+                            .buttonStyle(PlainButtonStyle()) // *Bug fix
                     }
-//                   https://stackoverflow.com/questions/56614080/how-to-remove-the-left-and-right-padding-of-a-list-in-swiftui
                     .listRowInsets(EdgeInsets())
                 }
             }
             .navigationBarTitle("Popular movies")
+            .onAppear(perform: viewModel.loadMore)
         }
     }
 }
+// *Bug: https://stackoverflow.com/questions/56614080/how-to-remove-the-left-and-right-padding-of-a-list-in-swiftui
 
 private class PopularMoviesViewModel: ObservableObject {
     private let dependencies: PopularMoviesViewDependencies
-    @Published var movies: [Movie] = []
+    @Published var listItems: [ListItem] = []
     var moveIdAppeared: String = "" {
         didSet {
-            if moveIdAppeared == movies.last?.id {
+            if moveIdAppeared == listItems.last?.movieId {
                 loadMore()
             }
         }
@@ -57,25 +58,35 @@ private class PopularMoviesViewModel: ObservableObject {
 
     init(dependencies: PopularMoviesViewDependencies) {
         self.dependencies = dependencies
-
-        dependencies.popularMoviesUseCase.fetchNext { result in
-            switch result {
-            case let .success(movies):
-                self.movies = movies
-            case .failure:
-                self.movies = []
-            }
-        }
     }
 
     func loadMore() {
         dependencies.popularMoviesUseCase.fetchNext { result in
             switch result {
             case let .success(movies):
-                self.movies = movies
+                self.listItems = movies.listItems
             case .failure:
                 break
             }
+        }
+    }
+}
+
+private struct ListItem: Equatable {
+    let movieId: String
+    let title: String
+    let backgroundColor: Color
+}
+
+private extension Array where Element == Movie {
+    var listItems: [ListItem] {
+        enumerated().map { tuple in
+            let movie = tuple.element
+            let index = tuple.offset
+            let colorIndex = index % Color.listItemBackgrounds.count
+            let color = Color.listItemBackgrounds[colorIndex]
+
+            return ListItem(movieId: movie.id, title: movie.title, backgroundColor: color)
         }
     }
 }
