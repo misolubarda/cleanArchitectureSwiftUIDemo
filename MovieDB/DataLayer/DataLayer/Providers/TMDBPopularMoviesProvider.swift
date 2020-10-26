@@ -57,16 +57,15 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
 
     }
 
-    public func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    public func posterName(forMovieId movieId: String, isSecondary: Bool, completion: @escaping (Result<String, Error>) -> Void) {
         DispatchQueue.main.async {
             if let matchedMovieDTO = self.cachedMovies.first(where: { String($0.id) == movieId }) {
-                completion(.success(matchedMovieDTO.poster_path))
+                completion(.success(isSecondary ? matchedMovieDTO.backdrop_path : matchedMovieDTO.poster_path))
             } else {
                 completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
             }
         }
     }
-
 }
 
 enum TMDBPopularMoviesProviderError: Error {
@@ -84,6 +83,7 @@ struct TMDBPopularMovieDTO: Decodable, Hashable {
     let title: String
     let overview: String
     let poster_path: String
+    let backdrop_path: String
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

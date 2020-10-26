@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		422B6C822546EFB300D88BC3 /* SecondaryPosterImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422B6C812546EFB300D88BC3 /* SecondaryPosterImageUseCase.swift */; };
 		426C868525389FCB0038BC43 /* MovieDetailsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C868425389FCB0038BC43 /* MovieDetailsProvider.swift */; };
 		426C868925389FD60038BC43 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C868825389FD60038BC43 /* MovieDetails.swift */; };
 		426C868D25389FDE0038BC43 /* MovieDetailsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C868C25389FDE0038BC43 /* MovieDetailsUseCase.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		422B6C812546EFB300D88BC3 /* SecondaryPosterImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryPosterImageUseCase.swift; sourceTree = "<group>"; };
 		426C868425389FCB0038BC43 /* MovieDetailsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsProvider.swift; sourceTree = "<group>"; };
 		426C868825389FD60038BC43 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		426C868C25389FDE0038BC43 /* MovieDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsUseCase.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				42733C5925375A1300418642 /* PosterImageInteractor.swift */,
 				42D4F78D2539D4CA00F6F077 /* PosterNameProvider.swift */,
 				42733C4D2537556300418642 /* PosterImageProvider.swift */,
+				422B6C812546EFB300D88BC3 /* SecondaryPosterImageUseCase.swift */,
 			);
 			path = "Poster image";
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				42733C41253754E700418642 /* PosterImageUseCase.swift in Sources */,
 				42733C1A25374AE800418642 /* PopularMoviesProvider.swift in Sources */,
 				426C868525389FCB0038BC43 /* MovieDetailsProvider.swift in Sources */,
+				422B6C822546EFB300D88BC3 /* SecondaryPosterImageUseCase.swift in Sources */,
 				426C868D25389FDE0038BC43 /* MovieDetailsUseCase.swift in Sources */,
 				426C869B2538A6730038BC43 /* MovieDetailsInteractor.swift in Sources */,
 				426C868925389FD60038BC43 /* MovieDetails.swift in Sources */,

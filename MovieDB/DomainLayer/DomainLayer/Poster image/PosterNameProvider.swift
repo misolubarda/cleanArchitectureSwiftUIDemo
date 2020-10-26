@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol PosterNameProvider {
-    func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void)
+    func posterName(forMovieId movieId: String, isSecondary: Bool, completion: @escaping (Result<String, Error>) -> Void)
 }

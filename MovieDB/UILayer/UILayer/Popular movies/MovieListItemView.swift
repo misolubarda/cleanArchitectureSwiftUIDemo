@@ -48,7 +48,7 @@ private class MovieListItemViewModel: ObservableObject {
     private let movieId: String
 
     @Published var image: UIImage?
-    @Published var imageSize: CGSize = CGSize(width: 300, height: 400)
+    @Published var imageSize: CGSize = CGSize(width: 400, height: 600)
 
     init(dependencies: MovieListItemViewDependencies, movieId: String) {
         self.dependencies = dependencies

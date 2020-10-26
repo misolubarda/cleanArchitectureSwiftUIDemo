@@ -12,8 +12,12 @@ import DataLayer
 
 class AppDependencies: MainViewDependencies {
     private let popularMoviesProvider = TMDBPopularMoviesProvider()
+    private let posterImageProvider = TMDBPosterImageProvider()
 
     lazy var popularMoviesUseCase: PopularMoviesUseCase = popularMoviesProvider
-    lazy var posterImageUseCase: PosterImageUseCase = PosterImageInteractor(posterNameProvider: popularMoviesProvider, posterImageProvider: TMDBPosterImageProvider())
+    lazy var posterImageUseCase: PosterImageUseCase = PosterImageInteractor(posterNameProvider: popularMoviesProvider,
+                                                                            posterImageProvider: posterImageProvider)
+    lazy var secondaryPosterImageUseCase: SecondaryPosterImageUseCase = PosterImageInteractor(posterNameProvider: popularMoviesProvider,
+                                                                                              posterImageProvider: posterImageProvider)
     lazy var movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsInteractor(movieDetailsProvider: TMDBMovieDetailsProvider())
 }

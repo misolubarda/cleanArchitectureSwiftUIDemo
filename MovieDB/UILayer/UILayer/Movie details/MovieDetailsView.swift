@@ -10,6 +10,7 @@ import DomainLayer
 
 public protocol MovieDetailsViewDependencies {
     var movieDetailsUseCase: MovieDetailsUseCase { get }
+    var secondaryPosterImageUseCase: SecondaryPosterImageUseCase { get }
 }
 
 struct MovieDetailsView: View {
@@ -23,15 +24,28 @@ struct MovieDetailsView: View {
         if self.viewModel.showError {
             ErrorView(errorText: "Something went wrong")
         } else {
-            VStack {
+            ScrollView {
+                Text(viewModel.title)
+                    .modifier(TextPrimary())
+                    .font(.title)
                 Spacer()
-                Text(viewModel.description)
-                    .font(.body)
+                    .frame(height: 10)
+                Image(uiImage: viewModel.image ?? UIImage())
+                    .resizable()
+                    .aspectRatio(viewModel.imageSize, contentMode: .fit)
                 Spacer()
+                    .frame(height: 10)
                 Text(viewModel.date)
+                    .modifier(TextPrimary())
+                    .font(.caption)
+                Spacer()
+                    .frame(height: 20)
+                Text(viewModel.description)
+                    .modifier(TextPrimary())
+                    .font(.body)
             }
-            .padding()
-            .navigationBarTitle(viewModel.title)
+            .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+            .background(Color.navigationBar)
             .onAppear(perform: viewModel.load)
         }
     }
@@ -52,6 +66,8 @@ private class MovieDetailsViewModel: ObservableObject {
     @Published var title: String = "Loading..."
     @Published var description: String = ""
     @Published var date: String = ""
+    @Published var image: UIImage?
+    @Published var imageSize: CGSize = CGSize(width: 500, height: 280)
 
     init(dependencies: MovieDetailsViewDependencies, movieId: String) {
         self.dependencies = dependencies
@@ -71,6 +87,15 @@ private class MovieDetailsViewModel: ObservableObject {
                 self.showError = false
             case .failure:
                 self.showError = true
+            }
+        }
+
+        dependencies.secondaryPosterImageUseCase.fetchSecondaryImage(movieId: movieId) { [weak self] result in
+            guard let self = self else { return }
+            guard let imageData = try? result.get() else { return }
+            if let image = UIImage(data: imageData) {
+                self.image = image
+                self.imageSize = image.size
             }
         }
     }
