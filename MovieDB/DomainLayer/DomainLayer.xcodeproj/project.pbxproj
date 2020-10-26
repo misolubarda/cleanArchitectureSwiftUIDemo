@@ -12,7 +12,6 @@
 		426C868D25389FDE0038BC43 /* MovieDetailsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C868C25389FDE0038BC43 /* MovieDetailsUseCase.swift */; };
 		426C869B2538A6730038BC43 /* MovieDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C869A2538A6730038BC43 /* MovieDetailsInteractor.swift */; };
 		42733B882537475300418642 /* DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42733B7E2537475300418642 /* DomainLayer.framework */; };
-		42733B8F2537475300418642 /* DomainLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42733B812537475300418642 /* DomainLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42733C0F253749B800418642 /* PopularMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C0E253749B800418642 /* PopularMoviesUseCase.swift */; };
 		42733C13253749DD00418642 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C12253749DD00418642 /* Movie.swift */; };
 		42733C1A25374AE800418642 /* PopularMoviesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C1925374AE800418642 /* PopularMoviesProvider.swift */; };
@@ -40,7 +39,6 @@
 		426C868C25389FDE0038BC43 /* MovieDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsUseCase.swift; sourceTree = "<group>"; };
 		426C869A2538A6730038BC43 /* MovieDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractor.swift; sourceTree = "<group>"; };
 		42733B7E2537475300418642 /* DomainLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		42733B812537475300418642 /* DomainLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainLayer.h; sourceTree = "<group>"; };
 		42733B822537475300418642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42733B872537475300418642 /* DomainLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42733B8E2537475300418642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 		42733B802537475300418642 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
-				42733B812537475300418642 /* DomainLayer.h */,
 				42733B822537475300418642 /* Info.plist */,
 				426C868325389F890038BC43 /* Movie details */,
 				42733C16253749E500418642 /* Popular movies */,
@@ -153,7 +150,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42733B8F2537475300418642 /* DomainLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

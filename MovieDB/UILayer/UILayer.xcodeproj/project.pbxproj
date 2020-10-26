@@ -11,7 +11,6 @@
 		426C86A42538A9B80038BC43 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C86A32538A9B80038BC43 /* ErrorView.swift */; };
 		42733B562537473200418642 /* UILayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42733B4C2537473200418642 /* UILayer.framework */; };
 		42733B5B2537473200418642 /* UILayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733B5A2537473200418642 /* UILayerTests.swift */; };
-		42733B5D2537473200418642 /* UILayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42733B4F2537473200418642 /* UILayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42733BFA2537484700418642 /* DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42733BF92537484700418642 /* DomainLayer.framework */; };
 		42733BFB2537484700418642 /* DomainLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42733BF92537484700418642 /* DomainLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42733C0B253748D800418642 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C0A253748D800418642 /* MainView.swift */; };
@@ -51,7 +50,6 @@
 		426C867325389DCB0038BC43 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
 		426C86A32538A9B80038BC43 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		42733B4C2537473200418642 /* UILayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UILayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		42733B4F2537473200418642 /* UILayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UILayer.h; sourceTree = "<group>"; };
 		42733B502537473200418642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42733B552537473200418642 /* UILayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UILayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42733B5A2537473200418642 /* UILayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILayerTests.swift; sourceTree = "<group>"; };
@@ -126,12 +124,11 @@
 		42733B4E2537473200418642 /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
-				426C869E2538A9970038BC43 /* Components */,
 				42733C0A253748D800418642 /* MainView.swift */,
 				42AF81262546E20300B83EF9 /* AppAppearance.swift */,
+				426C869E2538A9970038BC43 /* Components */,
 				42733C33253751F900418642 /* Popular movies */,
 				426C867225389DAE0038BC43 /* Movie details */,
-				42733B4F2537473200418642 /* UILayer.h */,
 				42733B502537473200418642 /* Info.plist */,
 				42AF811C2545CC5600B83EF9 /* UILayerAssets.xcassets */,
 			);
@@ -171,7 +168,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42733B5D2537473200418642 /* UILayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
