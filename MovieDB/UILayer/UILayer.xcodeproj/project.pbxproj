@@ -20,6 +20,7 @@
 		42AF811D2545CC5600B83EF9 /* UILayerAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42AF811C2545CC5600B83EF9 /* UILayerAssets.xcassets */; };
 		42AF81212545CCCA00B83EF9 /* Color+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF81202545CCCA00B83EF9 /* Color+Assets.swift */; };
 		42AF81242545D3A000B83EF9 /* Text+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF81232545D3A000B83EF9 /* Text+Default.swift */; };
+		42AF81272546E20300B83EF9 /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AF81262546E20300B83EF9 /* AppAppearance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		42AF811C2545CC5600B83EF9 /* UILayerAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UILayerAssets.xcassets; sourceTree = "<group>"; };
 		42AF81202545CCCA00B83EF9 /* Color+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Assets.swift"; sourceTree = "<group>"; };
 		42AF81232545D3A000B83EF9 /* Text+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Default.swift"; sourceTree = "<group>"; };
+		42AF81262546E20300B83EF9 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			children = (
 				426C869E2538A9970038BC43 /* Components */,
 				42733C0A253748D800418642 /* MainView.swift */,
+				42AF81262546E20300B83EF9 /* AppAppearance.swift */,
 				42733C33253751F900418642 /* Popular movies */,
 				426C867225389DAE0038BC43 /* Movie details */,
 				42733B4F2537473200418642 /* UILayer.h */,
@@ -278,6 +281,7 @@
 				42AF81212545CCCA00B83EF9 /* Color+Assets.swift in Sources */,
 				42AF81242545D3A000B83EF9 /* Text+Default.swift in Sources */,
 				426C867D25389E190038BC43 /* MovieDetailsView.swift in Sources */,
+				42AF81272546E20300B83EF9 /* AppAppearance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

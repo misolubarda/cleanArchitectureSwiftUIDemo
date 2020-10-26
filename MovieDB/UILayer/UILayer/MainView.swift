@@ -15,8 +15,7 @@ public struct MainView: View {
 
     public init(dependencies: MainViewDependencies) {
         self.dependencies = dependencies
-        UINavigationBar.appearance().backgroundColor = UIColor(Color.navigationBar)
-        UILabel.appearance().textColor = UIColor(Color.textPrimary)
+        AppAppearance.applyStyle()
     }
 
     public var body: some View {
