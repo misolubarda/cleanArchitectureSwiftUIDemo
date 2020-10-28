@@ -6,19 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 protocol NetworkSession {
-    func perform(with request: URLRequest, completionHandler: @escaping (_ data: Data?, _ httpResponse: URLResponse?, _ error: Error?) -> Void)
+    func perform(with request: URLRequest) -> AnyPublisher<Data, Error>
 }
 
 class DataNetworkSession: NetworkSession {
-    func perform(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            DispatchQueue.main.async {
-                completionHandler(data, response, error)
-            }
-        }
-
-        task.resume()
+    func perform(with request: URLRequest) -> AnyPublisher<Data, Error> {
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map { $0.data }
+            .mapError { $0 }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
+}
+
+enum DataNetworkSessionError: Error {
+    case ambigousResponse
 }

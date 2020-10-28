@@ -7,6 +7,7 @@
 
 import Foundation
 import DomainLayer
+import Combine
 
 public class TMDBPosterImageProvider: PosterImageProvider {
     private let fileService: FileService
@@ -20,23 +21,24 @@ public class TMDBPosterImageProvider: PosterImageProvider {
         self.fileService = fileService
     }
 
-    public func fetch(imageName: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        if let cachedImage = imageCache.value(forKey: imageName) {
-            completion(.success(cachedImage))
-            return
+    public func fetch(imageName: String) -> AnyPublisher<Data, Error> {
+        if let imageData = self.imageCache.value(forKey: imageName) {
+            return Future<Data, Error> { $0(.success(imageData)) }.eraseToAnyPublisher()
         }
 
-        do {
-            let request = try TMDBImageRequest(imageName: imageName).urlRequest()
-            fileService.execute(request: request) { [weak self] result in
-                guard let self = self else { return }
-                if let data = try? result.get() {
-                    self.imageCache.append(.init(key: imageName, value: data))
-                }
-                completion(result)
+        let fileService = self.fileService
+
+        return Just(imageName)
+            .tryMap { imageName in
+                try TMDBImageRequest(imageName: imageName).urlRequest()
             }
-        } catch {
-            completion(.failure(error))
-        }
+            .flatMap { request -> AnyPublisher<Data, Error> in
+                fileService.execute(request: request).eraseToAnyPublisher()
+            }
+            .map { [weak self] data in
+                self?.imageCache.append(.init(key: imageName, value: data))
+                return data
+            }
+            .eraseToAnyPublisher()
     }
 }

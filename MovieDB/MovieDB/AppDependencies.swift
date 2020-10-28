@@ -19,5 +19,5 @@ class AppDependencies: MainViewDependencies {
                                                                             posterImageProvider: posterImageProvider)
     lazy var secondaryPosterImageUseCase: SecondaryPosterImageUseCase = PosterImageInteractor(posterNameProvider: popularMoviesProvider,
                                                                                               posterImageProvider: posterImageProvider)
-    lazy var movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsInteractor(movieDetailsProvider: TMDBMovieDetailsProvider())
+    lazy var movieDetailsUseCase: MovieDetailsUseCase = TMDBMovieDetailsProvider()
 }

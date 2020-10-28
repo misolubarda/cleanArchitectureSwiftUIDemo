@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DomainLayer
+import Combine
 
 public protocol PopularMoviesViewDependencies: MovieListItemViewDependencies {
     var popularMoviesUseCase: PopularMoviesUseCase { get }
@@ -48,7 +49,10 @@ struct PopularMoviesView<DetailsView>: View where DetailsView: View {
 
 private class PopularMoviesViewModel: ObservableObject {
     private let dependencies: PopularMoviesViewDependencies
+    private var subscription: AnyCancellable?
+
     @Published var listItems: [ListItem] = []
+
     var moveIdAppeared: String = "" {
         didSet {
             if moveIdAppeared == listItems.last?.movieId {
@@ -61,15 +65,16 @@ private class PopularMoviesViewModel: ObservableObject {
         self.dependencies = dependencies
     }
 
+    deinit {
+        subscription?.cancel()
+    }
+
     func loadMore() {
-        dependencies.popularMoviesUseCase.fetchNext { result in
-            switch result {
-            case let .success(movies):
-                self.listItems = movies.listItems
-            case .failure:
-                break
-            }
-        }
+        subscription = dependencies.popularMoviesUseCase.fetchNext()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] movies in
+                    self?.listItems = movies.listItems
+                  })
     }
 }
 

@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 public protocol PopularMoviesUseCase {
-    func fetchNext(completion: @escaping (_ result: Result<[Movie], Error>) -> Void)
+    func fetchNext() -> AnyPublisher<[Movie], Error>
 }

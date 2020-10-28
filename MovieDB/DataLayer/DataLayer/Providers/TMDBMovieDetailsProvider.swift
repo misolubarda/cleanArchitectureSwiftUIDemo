@@ -7,6 +7,7 @@
 
 import Foundation
 import DomainLayer
+import Combine
 
 public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     private let webService: WebService
@@ -27,30 +28,27 @@ public class TMDBMovieDetailsProvider: MovieDetailsProvider {
         self.deviceLanguageCode = deviceLanguageCode
     }
 
-    public func fetch(forMovieId movieId: String, completion: @escaping (Result<MovieDetails, Error>) -> Void) {
-        do {
-            let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
-            let endpoint = TMDBRequest.Endpoint.movieDetails(movieId: movieId)
-            let request = try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
+    public func fetch(forMovieId movieId: String) -> AnyPublisher<MovieDetails, Error> {
+        let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
+        let endpoint = TMDBRequest.Endpoint.movieDetails(movieId: movieId)
 
-            webService.execute(request: request) { [weak self] (result: Result<TMDBMovieDetailsResponseDTO, Error>) in
-                guard let self = self else { return }
-                switch result {
-                case let .success(response):
-                    let releaseDate = self.dateForamtter.date(from: response.release_date)
-                    let movieDetails = MovieDetails(title: response.title,
-                                                     description: response.overview,
-                                                     releaseDate: releaseDate,
-                                                     rating: response.vote_average)
+        let webService = self.webService
 
-                    completion(.success(movieDetails))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
+        return Just((languageCode, endpoint))
+            .tryMap { languageCode, endpoint in
+                try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
             }
-        } catch {
-            completion(.failure(error))
-        }
+            .flatMap { request -> AnyPublisher<TMDBMovieDetailsResponseDTO, Error> in
+                webService.execute(request: request)
+            }
+            .map { [weak self] response -> MovieDetails in
+                let releaseDate = self?.dateForamtter.date(from: response.release_date)
+                return MovieDetails(title: response.title,
+                                    description: response.overview,
+                                    releaseDate: releaseDate,
+                                    rating: response.vote_average)
+            }
+            .eraseToAnyPublisher()
     }
 }
 

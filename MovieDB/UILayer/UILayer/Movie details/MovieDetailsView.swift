@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DomainLayer
+import Combine
 
 public protocol MovieDetailsViewDependencies {
     var movieDetailsUseCase: MovieDetailsUseCase { get }
@@ -55,6 +56,7 @@ struct MovieDetailsView: View {
 private class MovieDetailsViewModel: ObservableObject {
     private let dependencies: MovieDetailsViewDependencies
     private let movieId: String
+    private var subscribers = [AnyCancellable]()
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -75,30 +77,35 @@ private class MovieDetailsViewModel: ObservableObject {
         self.movieId = movieId
     }
 
+    deinit {
+        subscribers.forEach { $0.cancel() }
+    }
+
     func load() {
-        dependencies.movieDetailsUseCase.fetch(forMovieId: movieId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(movieDetails):
+        dependencies.movieDetailsUseCase.fetch(forMovieId: movieId)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: self.showError = false
+                case .failure: self.showError = true
+                }
+            }, receiveValue: { movieDetails in
                 self.title = movieDetails.title
                 self.description = movieDetails.description
                 if let releaseDate = movieDetails.releaseDate {
                     self.date = "Release date: " + self.dateFormatter.string(from: releaseDate)
                 }
-                self.showError = false
-            case .failure:
-                self.showError = true
-            }
-        }
+            })
+            .store(in: &subscribers)
 
-        dependencies.secondaryPosterImageUseCase.fetchSecondaryImage(movieId: movieId) { [weak self] result in
-            guard let self = self else { return }
-            guard let imageData = try? result.get() else { return }
-            if let image = UIImage(data: imageData) {
-                self.image = image
-                self.imageSize = image.size
-            }
-        }
+        dependencies.secondaryPosterImageUseCase.fetchSecondaryImage(movieId: movieId)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] imageData in
+                    if let image = UIImage(data: imageData) {
+                        self?.image = image
+                        self?.imageSize = image.size
+                    }
+                  })
+            .store(in: &subscribers)
     }
 }
 

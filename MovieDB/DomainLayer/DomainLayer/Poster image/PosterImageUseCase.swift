@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 public protocol PosterImageUseCase {
-    func fetch(movieId: String, completion: @escaping (Result<Data, Error>) -> Void)
+    func fetch(movieId: String) -> AnyPublisher<Data, Error>
 }

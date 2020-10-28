@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 protocol WebService {
-    func execute<D>(request: URLRequest, completion: @escaping (_ result: Result<D, Error>) -> Void) where D: Decodable
+    func execute<D>(request: URLRequest) -> AnyPublisher<D, Error> where D: Decodable
 }
 
 class TMDBWebService: WebService {
@@ -18,24 +19,9 @@ class TMDBWebService: WebService {
         self.networkSession = networkSession
     }
 
-    func execute<D>(request: URLRequest, completion: @escaping (_ result: Result<D, Error>) -> Void) where D: Decodable {
-        networkSession.perform(with: request) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data  {
-                do {
-                    let decodedResult = try JSONDecoder().decode(D.self, from: data)
-                    completion(.success(decodedResult))
-                } catch let error {
-                    completion(.failure(error))
-                }
-            } else {
-                completion(.failure(WebServiceError.ambigousResponse))
-            }
-        }
+    func execute<D>(request: URLRequest) -> AnyPublisher<D, Error> where D: Decodable {
+        networkSession.perform(with: request)
+            .decode(type: D.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
-}
-
-enum WebServiceError: Error {
-    case ambigousResponse
 }

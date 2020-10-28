@@ -7,6 +7,7 @@
 
 import Foundation
 import DomainLayer
+import Combine
 
 public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvider {
     private let webService: WebService
@@ -25,46 +26,48 @@ public class TMDBPopularMoviesProvider: PopularMoviesProvider, PosterNameProvide
         self.deviceLanguageCode = deviceLanguageCode
     }
 
-    public func fetchNext(completion: @escaping (Result<[Movie], Error>) -> Void) {
-        do {
-            let nextPage = currentPage + 1
-            if let allPages = allPages, nextPage >= allPages {
-                completion(.success(cachedMovies.movies))
-                return
-            }
-
-            let endpoint = TMDBRequest.Endpoint.popularMovies(page: nextPage)
-            let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
-            let request = try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
-
-            webService.execute(request: request) { [weak self] (result: Result<TMDBPopularMoviesResponseDTO, Error>) in
+    public func fetchNext() -> AnyPublisher<[Movie], Error> {
+        let nextPage = currentPage + 1
+        if let allPages = allPages, nextPage >= allPages {
+            return Future<[Movie], Error> { [weak self] in
                 guard let self = self else { return }
-                switch result {
-                case let .success(responseDTO):
-                    self.cachedMovies.append(responseDTO.results)
-                    if responseDTO.page == self.currentPage + 1 {
-                        self.currentPage = responseDTO.page
-                    }
-                    self.allPages = responseDTO.total_pages
-                    completion(.success(self.cachedMovies.movies))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
-        } catch {
-            completion(.failure(error))
+                $0(.success(self.cachedMovies.movies))
+            }.eraseToAnyPublisher()
         }
 
+        let endpoint = TMDBRequest.Endpoint.popularMovies(page: nextPage)
+        let languageCode = deviceLanguageCode.languageCode?.components(separatedBy: "-").first
+        let webService = self.webService
+        let currentPage = self.currentPage
+
+        return Just((endpoint, languageCode))
+            .tryMap { (endpoint, languageCode) in
+                try TMDBRequest(endpoint: endpoint, iso639_1: languageCode).urlRequest()
+            }
+            .flatMap { request -> AnyPublisher<TMDBPopularMoviesResponseDTO, Error> in
+                webService.execute(request: request)
+            }
+            .map { [weak self] responseDTO -> [Movie] in
+                self?.cachedMovies.append(responseDTO.results)
+                if responseDTO.page == currentPage + 1 {
+                    self?.currentPage = responseDTO.page
+                }
+                self?.allPages = responseDTO.total_pages
+                return self?.cachedMovies.movies ?? []
+            }
+            .eraseToAnyPublisher()
     }
 
-    public func posterName(forMovieId movieId: String, isSecondary: Bool, completion: @escaping (Result<String, Error>) -> Void) {
-        DispatchQueue.main.async {
-            if let matchedMovieDTO = self.cachedMovies.first(where: { String($0.id) == movieId }) {
-                completion(.success(isSecondary ? matchedMovieDTO.backdrop_path : matchedMovieDTO.poster_path))
-            } else {
-                completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
+    public func posterName(forMovieId movieId: String, isSecondary: Bool) -> AnyPublisher<String, Error> {
+        return Future<String, Error> { completion in
+            DispatchQueue.main.async {
+                if let matchedMovieDTO = self.cachedMovies.first(where: { String($0.id) == movieId }) {
+                    completion(.success(isSecondary ? matchedMovieDTO.backdrop_path : matchedMovieDTO.poster_path))
+                } else {
+                    completion(.failure(TMDBPopularMoviesProviderError.noMovieMatch))
+                }
             }
-        }
+        }.eraseToAnyPublisher()
     }
 }
 

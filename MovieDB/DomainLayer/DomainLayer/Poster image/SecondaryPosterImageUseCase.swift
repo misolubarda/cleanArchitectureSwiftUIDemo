@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 public protocol SecondaryPosterImageUseCase {
-    func fetchSecondaryImage(movieId: String, completion: @escaping (Result<Data, Error>) -> Void)
+    func fetchSecondaryImage(movieId: String) -> AnyPublisher<Data, Error>
 }

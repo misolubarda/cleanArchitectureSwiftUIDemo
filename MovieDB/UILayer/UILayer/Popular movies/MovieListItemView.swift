@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DomainLayer
+import Combine
 
 public protocol MovieListItemViewDependencies {
     var posterImageUseCase: PosterImageUseCase { get }
@@ -46,6 +47,7 @@ struct MovieListItemView: View {
 private class MovieListItemViewModel: ObservableObject {
     private let dependencies: MovieListItemViewDependencies
     private let movieId: String
+    private var subscription: AnyCancellable?
 
     @Published var image: UIImage?
     @Published var imageSize: CGSize = CGSize(width: 400, height: 600)
@@ -55,18 +57,24 @@ private class MovieListItemViewModel: ObservableObject {
         self.movieId = movieId
     }
 
+    deinit {
+        subscription?.cancel()
+    }
+
     func load() {
-        dependencies.posterImageUseCase.fetch(movieId: movieId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(data):
-                if let image = UIImage(data: data) {
-                    self.image = image
-                    self.imageSize = image.size
+        subscription = dependencies.posterImageUseCase.fetch(movieId: movieId)
+            .sink(receiveCompletion: { [weak self] result in
+                switch result {
+                case .finished: break
+                case .failure: self?.image = nil
                 }
-            case .failure:
-                self.image = nil
-            }
-        }
+            }, receiveValue: { [weak self] data in
+                if let image = UIImage(data: data) {
+                    self?.image = image
+                    self?.imageSize = image.size
+                } else {
+                    self?.image = nil
+                }
+            })
     }
 }

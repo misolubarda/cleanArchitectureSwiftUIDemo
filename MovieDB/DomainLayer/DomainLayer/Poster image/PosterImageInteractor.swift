@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 public class PosterImageInteractor: PosterImageUseCase, SecondaryPosterImageUseCase {
     private let posterNameProvider: PosterNameProvider
@@ -16,34 +17,21 @@ public class PosterImageInteractor: PosterImageUseCase, SecondaryPosterImageUseC
         self.posterImageProvider = posterImageProvider
     }
 
-    public func fetch(movieId: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        fetch(movieId: movieId, isSecondary: false, completion: completion)
+    public func fetch(movieId: String) -> AnyPublisher<Data, Error> {
+        fetch(movieId: movieId, isSecondary: false)
     }
 
-    public func fetchSecondaryImage(movieId: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        fetch(movieId: movieId, isSecondary: true, completion: completion)
+    public func fetchSecondaryImage(movieId: String) -> AnyPublisher<Data, Error> {
+        fetch(movieId: movieId, isSecondary: true)
     }
 
-    private func fetch(movieId: String, isSecondary: Bool = false, completion: @escaping (Result<Data, Error>) -> Void) {
-        var posterName: String!
+    private func fetch(movieId: String, isSecondary: Bool = false) -> AnyPublisher<Data, Error> {
+        let posterImageProvider = self.posterImageProvider
 
-        DispatchQueue(label: "PosterImageInteractor_queue").async {
-            let dispatchGroup = DispatchGroup()
-
-            dispatchGroup.enter()
-            self.posterNameProvider.posterName(forMovieId: movieId, isSecondary: isSecondary) { result in
-                switch result {
-                case let .success(_posterName):
-                    posterName = _posterName
-                    dispatchGroup.leave()
-                case let .failure(error):
-                    completion(.failure(error))
-                }
+        return posterNameProvider.posterName(forMovieId: movieId, isSecondary: isSecondary)
+            .flatMap { posterName in
+                posterImageProvider.fetch(imageName: posterName)
             }
-
-            dispatchGroup.notify(queue: .main) {
-                self.posterImageProvider.fetch(imageName: posterName, completion: completion)
-            }
-        }
+            .eraseToAnyPublisher()
     }
 }

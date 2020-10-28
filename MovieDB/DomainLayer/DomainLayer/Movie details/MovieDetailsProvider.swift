@@ -6,7 +6,6 @@
 //
 
 import Foundation
+import Combine
 
-public protocol MovieDetailsProvider {
-    func fetch(forMovieId movieId: String, completion: @escaping (Result<MovieDetails, Error>) -> Void)
-}
+public protocol MovieDetailsProvider: MovieDetailsUseCase {}
