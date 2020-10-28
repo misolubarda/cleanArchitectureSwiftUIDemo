@@ -129,7 +129,7 @@ private class PosterNameProviderFake: PosterNameProvider {
     var forMovieId: String?
     var result: Result<String, Error>!
 
-    func posterName(forMovieId movieId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func posterName(forMovieId movieId: String, isSecondary: Bool, completion: @escaping (Result<String, Error>) -> Void) {
         forMovieId = movieId
         completion(result)
     }

@@ -145,7 +145,8 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         let movie = TMDBPopularMovieDTO(id: 1,
                                         title: "title",
                                         overview: "overview",
-                                        poster_path: "posterPath")
+                                        poster_path: "posterPath",
+                                        backdrop_path: "backdrop_path")
         return TMDBPopularMoviesResponseDTO(results: [movie],
                                             page: 1,
                                             total_pages: 10)
@@ -155,7 +156,8 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         let movie = TMDBPopularMovieDTO(id: 2,
                                         title: "title",
                                         overview: "overview",
-                                        poster_path: "posterPath")
+                                        poster_path: "posterPath",
+                                        backdrop_path: "backdrop_path")
         return TMDBPopularMoviesResponseDTO(results: [movie],
                                             page: 2,
                                             total_pages: 10)
@@ -165,7 +167,8 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         let movie = TMDBPopularMovieDTO(id: 1,
                                         title: "title",
                                         overview: "overview",
-                                        poster_path: "posterPath")
+                                        poster_path: "posterPath",
+                                        backdrop_path: "backdrop_path")
         return TMDBPopularMoviesResponseDTO(results: [movie],
                                             page: 1,
                                             total_pages: 1)
@@ -175,7 +178,8 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         let movie = TMDBPopularMovieDTO(id: 2,
                                         title: "title",
                                         overview: "overview",
-                                        poster_path: "posterPath")
+                                        poster_path: "posterPath",
+                                        backdrop_path: "backdrop_path")
         return TMDBPopularMoviesResponseDTO(results: [movie],
                                             page: 2,
                                             total_pages: 1)
