@@ -10,7 +10,7 @@ import XCTest
 import DomainLayer
 
 final class TMDBPopularMoviesProviderTests: XCTestCase {
-    private var webServiceFake: WebServiceFake!
+    private var webServiceFake: WebServiceFake<TMDBPopularMoviesResponseDTO>!
     private var deviceLanguageCodeFake: DeviceLanguageCodeFake!
     private var tmdbPopularMoviesProvider: TMDBPopularMoviesProvider!
 
@@ -18,7 +18,7 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         super.setUp()
 
         webServiceFake = WebServiceFake()
-        webServiceFake.result = responseForPage1
+        webServiceFake.result = .success(responseForPage1)
         deviceLanguageCodeFake = DeviceLanguageCodeFake()
         tmdbPopularMoviesProvider = TMDBPopularMoviesProvider(webService: webServiceFake, deviceLanguageCode: deviceLanguageCodeFake)
     }
@@ -35,7 +35,7 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         let expectedUrlString = "https://api.themoviedb.org/3/movie/popular?api_key=13b51907351de1f890bac01ceb71fbae&page=1"
 
         // when
-        tmdbPopularMoviesProvider.fetchNext { _ in }
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
 
         // then
         XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -47,7 +47,7 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
         let expectedUrlString = "https://api.themoviedb.org/3/movie/popular?api_key=13b51907351de1f890bac01ceb71fbae&page=1&language=someCode"
 
         // when
-        tmdbPopularMoviesProvider.fetchNext { _ in }
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
 
         // then
         XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -56,10 +56,10 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
     func testFetchNext_whenRequestingAgain_pageNumberIsEncreased() {
         // given
         let expectedUrlString = "https://api.themoviedb.org/3/movie/popular?api_key=13b51907351de1f890bac01ceb71fbae&page=2"
-        tmdbPopularMoviesProvider.fetchNext { _ in }
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
 
         // when
-        tmdbPopularMoviesProvider.fetchNext { _ in }
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
 
         // then
         XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -67,78 +67,85 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
 
     func testFetchNext_onFirstRequest_returnsCoorectResultCount() {
         // when
-        var result: Result<[Movie], Error>?
-        tmdbPopularMoviesProvider.fetchNext { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertEqual(try result?.get().count, 1)
+        _ = tmdbPopularMoviesProvider.fetchNext()
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure: XCTFail()
+                }
+            }, receiveValue: { movies in
+                XCTAssertEqual(movies.count, 1)
+            })
     }
 
     func testFetchNext_whenPageNumberIncreasesBy1_appendsTheSecondResponse() {
         // given
-        webServiceFake.result = responseForPage1
-        tmdbPopularMoviesProvider.fetchNext { _ in }
-        webServiceFake.result = responseForPage2
+        webServiceFake.result = .success(responseForPage1)
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
+        webServiceFake.result = .success(responseForPage2)
 
         // when
-        var result: Result<[Movie], Error>?
-        tmdbPopularMoviesProvider.fetchNext { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertEqual(try result?.get().count, 2)
+        _ = tmdbPopularMoviesProvider.fetchNext()
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure: XCTFail()
+                }
+            }, receiveValue: { movies in
+                XCTAssertEqual(movies.count, 2)
+            })
     }
 
     func testFetchNext_callingItTwice_returningTheSamePage_returnsUnchangedResult() {
         // given
-        webServiceFake.result = responseForPage1
-        tmdbPopularMoviesProvider.fetchNext { _ in }
-        webServiceFake.result = responseForPage1
+        webServiceFake.result = .success(responseForPage1)
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
+        webServiceFake.result = .success(responseForPage1)
 
         // when
-        var result: Result<[Movie], Error>?
-        tmdbPopularMoviesProvider.fetchNext { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertEqual(try result?.get().count, 1)
+        _ = tmdbPopularMoviesProvider.fetchNext()
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure: XCTFail()
+                }
+            }, receiveValue: { movies in
+                XCTAssertEqual(movies.count, 1)
+            })
     }
 
     func testFetchNext_whenNextPageExceedsAllPagesCount_returnsUnchangedResult() {
         // given
-        webServiceFake.result = responseForPage1AllPagesCount1
-        tmdbPopularMoviesProvider.fetchNext { _ in }
-        webServiceFake.result = responseForPage2AllPagesCount1
+        webServiceFake.result = .success(responseForPage1AllPagesCount1)
+        _ = tmdbPopularMoviesProvider.fetchNext().sink()
+        webServiceFake.result = .success(responseForPage2AllPagesCount1)
 
         // when
-        var result: Result<[Movie], Error>?
-        tmdbPopularMoviesProvider.fetchNext { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertEqual(try result?.get().count, 1)
+        _ = tmdbPopularMoviesProvider.fetchNext()
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure: XCTFail()
+                }
+            }, receiveValue: { movies in
+                XCTAssertEqual(movies.count, 1)
+            })
     }
 
     func testFetchNext_whenWebServiceFailsWithError_failsWithCorrectError() {
         // given
         let expectedError = FakeError.someError
-        webServiceFake.error = expectedError
+        webServiceFake.result = .failure(expectedError)
 
         // when
-        var result: Result<[Movie], Error>?
-        tmdbPopularMoviesProvider.fetchNext { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
+        _ = tmdbPopularMoviesProvider.fetchNext()
+            .sink { result in
+                switch result {
+                case .finished: XCTFail()
+                case let .failure(error):
+                    XCTAssertEqual(error as? FakeError, expectedError)
+                }
+            }
     }
 
     private var responseForPage1: TMDBPopularMoviesResponseDTO {

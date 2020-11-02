@@ -36,7 +36,7 @@ class PosterImageInteractorTests: XCTestCase {
         let _expectation = expectation(description: "")
 
         // when
-        interactor.fetch(movieId: "someMovieId") { _ in
+        _ = interactor.fetch(movieId: "someMovieId").sink { _ in
             XCTAssertTrue(Thread.isMainThread)
             _expectation.fulfill()
         }
@@ -51,7 +51,7 @@ class PosterImageInteractorTests: XCTestCase {
         let _expectation = expectation(description: "")
 
         // when
-        interactor.fetch(movieId: expectedMovieId) { _ in
+        _ = interactor.fetch(movieId: expectedMovieId).sink { _ in
             _expectation.fulfill()
         }
 
@@ -66,15 +66,18 @@ class PosterImageInteractorTests: XCTestCase {
         let _expectation = expectation(description: "")
 
         // when
-        var result: Result<Data, Error>?
-        interactor.fetch(movieId: "someMovieId") { _result in
-            result = _result
+        _ = interactor.fetch(movieId: "someMovieId").sink(receiveCompletion: { result in
+            switch result {
+            case .finished: break
+            case .failure: XCTFail()
+            }
             _expectation.fulfill()
-        }
+        }, receiveValue: { data in
+            XCTAssertEqual(data, self.posterImageData)
+        })
 
         // then
         wait(for: [_expectation], timeout: 0.2)
-        XCTAssertEqual(try result?.get(), posterImageData)
     }
 
     func testFetch_whenPosterNameProviderFails_failsWithCorrectError() {
@@ -84,17 +87,18 @@ class PosterImageInteractorTests: XCTestCase {
         let _expectation = expectation(description: "")
 
         // when
-        var result: Result<Data, Error>?
-        interactor.fetch(movieId: "someMovieId") { _result in
-            result = _result
+        _ = interactor.fetch(movieId: "someMovieId").sink { result in
+            switch result {
+            case .finished:
+                XCTFail()
+            case let .failure(error):
+                XCTAssertEqual(error as? FakeError, expectedError)
+            }
             _expectation.fulfill()
         }
 
         // then
         wait(for: [_expectation], timeout: 0.2)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
     }
 
     func testFetch_whenPosterImageProviderFails_failsWithCorrectError() {
@@ -104,17 +108,18 @@ class PosterImageInteractorTests: XCTestCase {
         let _expectation = expectation(description: "")
 
         // when
-        var result: Result<Data, Error>?
-        interactor.fetch(movieId: "someMovieId") { _result in
-            result = _result
+        _ = interactor.fetch(movieId: "someMovieId").sink { result in
+            switch result {
+            case .finished:
+                XCTFail()
+            case let .failure(error):
+                XCTAssertEqual(error as? FakeError, expectedError)
+            }
             _expectation.fulfill()
         }
 
         // then
         wait(for: [_expectation], timeout: 0.2)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
     }
 
     private var posterName: String { "somePosterName" }
@@ -129,9 +134,11 @@ private class PosterNameProviderFake: PosterNameProvider {
     var forMovieId: String?
     var result: Result<String, Error>!
 
-    func posterName(forMovieId movieId: String, isSecondary: Bool, completion: @escaping (Result<String, Error>) -> Void) {
+    func posterName(forMovieId movieId: String, isSecondary: Bool) -> AnyPublisher<String, Error> {
         forMovieId = movieId
-        completion(result)
+        return Future<String, Error> { completion in
+            completion(self.result)
+        }.eraseToAnyPublisher()
     }
 }
 
@@ -139,8 +146,9 @@ private class PosterImageProviderFake: PosterImageProvider {
     var imageName: String?
     var result: Result<Data, Error>!
 
-    func fetch(imageName: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    func fetch(imageName: String) -> AnyPublisher<Data, Error> {
         self.imageName = imageName
-        completion(result)
+        return Future<Data, Error> { $0(self.result)}
+            .eraseToAnyPublisher()
     }
 }

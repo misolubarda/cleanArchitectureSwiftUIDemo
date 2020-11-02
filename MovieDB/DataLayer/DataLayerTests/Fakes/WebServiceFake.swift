@@ -8,17 +8,12 @@
 import Foundation
 @testable import DataLayer
 
-class WebServiceFake: WebService {
+class WebServiceFake<Dec>: WebService where Dec: Decodable {
     var request: URLRequest?
-    var result: Decodable!
-    var error: Error!
+    var result: Result<Dec, Error>!
 
-    func execute<D>(request: URLRequest, completion: @escaping (Result<D, Error>) -> Void) where D : Decodable {
+    func execute<D>(request: URLRequest) -> AnyPublisher<D, Error> where D : Decodable {
         self.request = request
-        if let error = error {
-            completion(.failure(error))
-            return
-        }
-        completion(.success(result as! D))
+        return Future<D, Error> { $0(self.result as! Result<D, Error>) }.eraseToAnyPublisher()
     }
 }

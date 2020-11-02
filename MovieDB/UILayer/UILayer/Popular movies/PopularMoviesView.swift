@@ -7,7 +7,6 @@
 
 import SwiftUI
 import DomainLayer
-import Combine
 
 public protocol PopularMoviesViewDependencies: MovieListItemViewDependencies {
     var popularMoviesUseCase: PopularMoviesUseCase { get }

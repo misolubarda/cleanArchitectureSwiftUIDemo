@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 public protocol PopularMoviesUseCase {
     func fetchNext() -> AnyPublisher<[Movie], Error>

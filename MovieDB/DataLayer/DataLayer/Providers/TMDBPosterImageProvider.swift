@@ -7,7 +7,6 @@
 
 import Foundation
 import DomainLayer
-import Combine
 
 public class TMDBPosterImageProvider: PosterImageProvider {
     private let fileService: FileService

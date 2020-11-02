@@ -10,15 +10,11 @@ import Foundation
 
 class FileServiceFake: FileService {
     var request: URLRequest?
-    var result: Data!
-    var error: Error!
+    var result: Result<Data, Error>!
 
-    func execute(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) {
+    func execute(request: URLRequest) -> AnyPublisher<Data, Error> {
         self.request = request
-        if let error = error {
-            completion(.failure(error))
-            return
-        }
-        completion(.success(result))
+        return Future<Data, Error> { $0(self.result) }
+            .eraseToAnyPublisher()
     }
 }

@@ -8,88 +8,71 @@ import XCTest
 @testable import DataLayer
 
 final class WebServiceTests: XCTestCase {
+    var networkServiceFake: NetworkServiceFake!
+    var webService: TMDBWebService!
+
+    override func setUp() {
+        super.setUp()
+
+        networkServiceFake = NetworkServiceFake()
+        webService = TMDBWebService(networkSession: networkServiceFake)
+    }
+
+    override func tearDown() {
+        networkServiceFake = nil
+        webService = nil
+
+        super.tearDown()
+    }
+
     func testExecute_whenDataIsReturend_succeedsWithDTOs() {
         let expectedResult = FakeDTO(id: 1, title: "title")
-        let fakeNetworkService = FakeNetworkService()
-        fakeNetworkService.data = try! JSONEncoder().encode(expectedResult)
+        networkServiceFake.result = .success(try! JSONEncoder().encode(expectedResult))
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
-        var result: Result<FakeDTO, Error>?
-        webService.execute(request: fakeRequest) { (_result: Result<FakeDTO, Error>) in
-            result = _result
+        _ = webService.execute(request: fakeRequest).sink { result in
+            switch result {
+            case .finished: break
+            case .failure: XCTFail()
+            }
+        } receiveValue: { (result: FakeDTO) in
+            XCTAssertEqual(result, expectedResult)
         }
-
-        XCTAssertNotNil(result)
-        XCTAssertNoThrow(try result?.get())
     }
 
     func testExecute_whenDataIsNotParsable_failsWithCorrectError() {
-        let fakeNetworkService = FakeNetworkService()
-        fakeNetworkService.data = "blabla".data(using: .utf8)
+        networkServiceFake.result = .success("blabla".data(using: .utf8)!)
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
-        var result: Result<FakeDTO, Error>?
-        webService.execute(request: fakeRequest) { (_result: Result<FakeDTO, Error>) in
-            result = _result
-        }
-
-        XCTAssertNotNil(result)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertTrue(error is DecodingError)
-        }
+        _ = webService.execute(request: fakeRequest)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished:
+                    XCTFail()
+                case let .failure(error):
+                    XCTAssertTrue(error is DecodingError)
+                }
+            }, receiveValue: { (fakeDto: FakeDTO) in })
     }
 
     func testExecute_whenNetworkSessionError_failsWithCorrectError() {
         let expectedError = FakeError.someError
-        let fakeNetworkService = FakeNetworkService()
-        fakeNetworkService.error = expectedError
+        networkServiceFake.result = .failure(expectedError) 
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = TMDBWebService(networkSession: fakeNetworkService)
 
-        var result: Result<Data, Error>?
-        webService.execute(request: fakeRequest) { _result in
-            result = _result
-        }
-
-        XCTAssertNotNil(result)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
-    }
-
-    func testExecute_whenDataIsNotPresent_failsWithCorrectError() {
-        let fakeNetworkService = FakeNetworkService()
-        let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let webService = TMDBWebService(networkSession: fakeNetworkService)
-
-        var result: Result<FakeDTO, Error>?
-        webService.execute(request: fakeRequest) { (_result: Result<FakeDTO, Error>) in
-            result = _result
-        }
-
-        XCTAssertNotNil(result)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? WebServiceError, .ambigousResponse)
-        }
+        _ = webService.execute(request: fakeRequest)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished:
+                    XCTFail()
+                case let .failure(error):
+                    XCTAssertEqual(error as? FakeError, expectedError)
+                }
+            }, receiveValue: { (fakeDto: FakeDTO) in })
     }
 }
 
-private class FakeNetworkService: NetworkSession {
-    var data: Data?
-    var error: Error?
-
-    func perform(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        if let error = error {
-            completionHandler(nil, nil, error)
-        } else {
-            completionHandler(data, nil, nil)
-        }
-    }
-}
-
-private struct FakeDTO: Codable {
+private struct FakeDTO: Codable, Equatable {
     let id: Int
     let title: String
 }

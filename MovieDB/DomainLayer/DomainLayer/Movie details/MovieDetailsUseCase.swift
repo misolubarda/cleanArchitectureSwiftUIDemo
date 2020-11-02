@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 public protocol MovieDetailsUseCase {
     func fetch(forMovieId movieId: String) -> AnyPublisher<MovieDetails, Error>

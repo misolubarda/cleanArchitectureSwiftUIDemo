@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 public protocol SecondaryPosterImageUseCase {
     func fetchSecondaryImage(movieId: String) -> AnyPublisher<Data, Error>

@@ -7,7 +7,6 @@
 
 import Foundation
 import DomainLayer
-import Combine
 
 public class TMDBMovieDetailsProvider: MovieDetailsProvider {
     private let webService: WebService

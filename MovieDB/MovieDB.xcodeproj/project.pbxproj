@@ -22,6 +22,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		425006AB254DDB76004C53C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 425006A2254DDB75004C53C4 /* Shared.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42500688254DDB75004C53C4;
+			remoteInfo = Shared;
+		};
+		425006AD254DDB76004C53C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 425006A2254DDB75004C53C4 /* Shared.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42500691254DDB75004C53C4;
+			remoteInfo = SharedTests;
+		};
 		42733B23253746F500418642 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 42733B09253746F200418642 /* Project object */;
@@ -97,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		425006A2254DDB75004C53C4 /* Shared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Shared.xcodeproj; path = Shared/Shared.xcodeproj; sourceTree = "<group>"; };
 		42733B11253746F200418642 /* MovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42733B14253746F200418642 /* MovieDBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBApp.swift; sourceTree = "<group>"; };
 		42733B18253746F500418642 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -142,9 +157,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		425006A3254DDB75004C53C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				425006AC254DDB76004C53C4 /* Shared.framework */,
+				425006AE254DDB76004C53C4 /* SharedTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		42733B08253746F200418642 = {
 			isa = PBXGroup;
 			children = (
+				425006A2254DDB75004C53C4 /* Shared.xcodeproj */,
 				42733BCA2537476500418642 /* DataLayer.xcodeproj */,
 				42733B982537475300418642 /* DomainLayer.xcodeproj */,
 				42733B662537473200418642 /* UILayer.xcodeproj */,
@@ -338,6 +363,10 @@
 					ProjectRef = 42733B982537475300418642 /* DomainLayer.xcodeproj */;
 				},
 				{
+					ProductGroup = 425006A3254DDB75004C53C4 /* Products */;
+					ProjectRef = 425006A2254DDB75004C53C4 /* Shared.xcodeproj */;
+				},
+				{
 					ProductGroup = 42733B672537473200418642 /* Products */;
 					ProjectRef = 42733B662537473200418642 /* UILayer.xcodeproj */;
 				},
@@ -352,6 +381,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		425006AC254DDB76004C53C4 /* Shared.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Shared.framework;
+			remoteRef = 425006AB254DDB76004C53C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		425006AE254DDB76004C53C4 /* SharedTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SharedTests.xctest;
+			remoteRef = 425006AD254DDB76004C53C4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		42733B6E2537473300418642 /* UILayer.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

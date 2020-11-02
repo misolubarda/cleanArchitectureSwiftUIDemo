@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 public protocol PosterImageProvider {
     func fetch(imageName: String) -> AnyPublisher<Data, Error>

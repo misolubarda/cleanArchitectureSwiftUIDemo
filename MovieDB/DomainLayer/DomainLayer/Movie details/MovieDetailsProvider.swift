@@ -6,6 +6,5 @@
 //
 
 import Foundation
-import Combine
 
 public protocol MovieDetailsProvider: MovieDetailsUseCase {}

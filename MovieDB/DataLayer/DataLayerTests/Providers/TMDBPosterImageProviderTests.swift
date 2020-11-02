@@ -21,7 +21,7 @@ final class TMDBPosterImageProviderTests: XCTestCase {
 
         expectedData = "someData".data(using: .utf8)
         fileServiceFake = FileServiceFake()
-        fileServiceFake.result = expectedData
+        fileServiceFake.result = .success(expectedData)
         tmdbPosterImageProvider = TMDBPosterImageProvider(fileService: fileServiceFake)
     }
 
@@ -39,7 +39,7 @@ final class TMDBPosterImageProviderTests: XCTestCase {
         let expectedUrlString = "https://image.tmdb.org/t/p/w500/\(imageName)"
 
         // when
-        tmdbPosterImageProvider.fetch(imageName: imageName) { _ in }
+        _ = tmdbPosterImageProvider.fetch(imageName: imageName).sink()
 
         // then
         XCTAssertEqual(fileServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -52,7 +52,7 @@ final class TMDBPosterImageProviderTests: XCTestCase {
         let expectedUrlString = "https://image.tmdb.org/t/p/w500/\(imageName)"
 
         // when
-        tmdbPosterImageProvider.fetch(imageName: imageNameWithSlash) { _ in }
+        _ = tmdbPosterImageProvider.fetch(imageName: imageNameWithSlash).sink()
 
         // then
         XCTAssertEqual(fileServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -60,30 +60,32 @@ final class TMDBPosterImageProviderTests: XCTestCase {
 
     func testFetch_whenDataIsReturned_returnsCorrectResult() {
         // when
-        var result: Result<Data, Error>?
-        tmdbPosterImageProvider.fetch(imageName: "imageName") { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertEqual(try result?.get(), expectedData)
+        _ = tmdbPosterImageProvider.fetch(imageName: "imageName")
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure: XCTFail()
+                }
+            }, receiveValue: { data in
+                XCTAssertEqual(data, self.expectedData)
+            })
     }
 
     func testFetchNext_whenWebServiceFailsWithError_failsWithCorrectError() {
         // given
         let expectedError = FakeError.someError
-        fileServiceFake.error = expectedError
+        fileServiceFake.result = .failure(expectedError) 
 
         // when
-        var result: Result<Data, Error>?
-        tmdbPosterImageProvider.fetch(imageName: "imageName") { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
+        _ = tmdbPosterImageProvider.fetch(imageName: "imageName")
+            .sink { result in
+                switch result {
+                case .finished:
+                    XCTFail()
+                case let .failure(error):
+                    XCTAssertEqual(error as? FakeError, expectedError)
+                }
+            }
     }
 }
 

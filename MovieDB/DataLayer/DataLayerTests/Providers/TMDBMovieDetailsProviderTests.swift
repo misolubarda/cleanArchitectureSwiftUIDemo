@@ -10,7 +10,7 @@ import XCTest
 import DomainLayer
 
 class TMDBMovieDetailsProviderTests: XCTestCase {
-    private var webServiceFake: WebServiceFake!
+    private var webServiceFake: WebServiceFake<TMDBMovieDetailsResponseDTO>!
     private var deviceLanguageCodeFake: DeviceLanguageCodeFake!
     private var tmdbMovieDetailsProvider: TMDBMovieDetailsProvider!
 
@@ -18,7 +18,7 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
         super.setUp()
 
         webServiceFake = WebServiceFake()
-        webServiceFake.result = response
+        webServiceFake.result = .success(response)
         deviceLanguageCodeFake = DeviceLanguageCodeFake()
         tmdbMovieDetailsProvider = TMDBMovieDetailsProvider(webService: webServiceFake, deviceLanguageCode: deviceLanguageCodeFake)
     }
@@ -37,7 +37,7 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
         let expectedUrlString = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=13b51907351de1f890bac01ceb71fbae"
 
         // when
-        tmdbMovieDetailsProvider.fetch(forMovieId: movieId) { _ in }
+        _ = tmdbMovieDetailsProvider.fetch(forMovieId: movieId).sink()
 
         // then
         XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -50,7 +50,7 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
         let expectedUrlString = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=13b51907351de1f890bac01ceb71fbae&language=someCode"
 
         // when
-        tmdbMovieDetailsProvider.fetch(forMovieId: movieId) { _ in }
+        _ = tmdbMovieDetailsProvider.fetch(forMovieId: movieId).sink()
 
         // then
         XCTAssertEqual(webServiceFake.request?.url?.absoluteString, expectedUrlString)
@@ -58,30 +58,32 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
 
     func testFetch_whenWebServiceSuccess_succeedsWithResult() {
         // when
-        var result: Result<MovieDetails, Error>?
-        tmdbMovieDetailsProvider.fetch(forMovieId: "someId") { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertEqual(try result?.get().title, response.title)
+        _ = tmdbMovieDetailsProvider.fetch(forMovieId: "someId")
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure: XCTFail()
+                }
+            }, receiveValue: { movieDetails in
+                XCTAssertEqual(movieDetails.title, self.response.title)
+            })
     }
 
     func testFetch_whenWebServiceFailure_FailsWithCorrectError() {
         // given
         let expectedError = FakeError.someError
-        webServiceFake.error = expectedError
+        webServiceFake.result = .failure(expectedError)
 
         // when
-        var result: Result<MovieDetails, Error>?
-        tmdbMovieDetailsProvider.fetch(forMovieId: "someId") { _result in
-            result = _result
-        }
-
-        // then
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
+        _ = tmdbMovieDetailsProvider.fetch(forMovieId: "someId")
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished:
+                    XCTFail()
+                case let .failure(error):
+                    XCTAssertEqual(error as? FakeError, expectedError)
+                }
+            })
     }
 
     private var response: TMDBMovieDetailsResponseDTO {

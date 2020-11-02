@@ -7,7 +7,6 @@
 
 import SwiftUI
 import DomainLayer
-import Combine
 
 public protocol MovieListItemViewDependencies {
     var posterImageUseCase: PosterImageUseCase { get }

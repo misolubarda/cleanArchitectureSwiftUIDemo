@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 public class PosterImageInteractor: PosterImageUseCase, SecondaryPosterImageUseCase {
     private let posterNameProvider: PosterNameProvider

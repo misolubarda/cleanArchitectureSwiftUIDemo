@@ -16,13 +16,16 @@ final class NetworkSessionTests: XCTestCase {
         let urlRequest = URLRequest(url: URL(string: "http://failableUrl.localhost")!)
         let expectation = XCTestExpectation()
 
+        var cancelable: AnyCancellable?
         DispatchQueue(label: "nonMainQueue").async {
-            session.perform(with: urlRequest) { _, _, _ in
-                XCTAssertTrue(Thread.isMainThread)
-                expectation.fulfill()
-            }
+            cancelable = session.perform(with: urlRequest)
+                .sink(receiveCompletion: { _ in
+                    XCTAssertTrue(Thread.isMainThread)
+                    expectation.fulfill()
+                })
         }
 
         wait(for: [expectation], timeout: 0.5)
+        cancelable?.cancel()
     }
 }

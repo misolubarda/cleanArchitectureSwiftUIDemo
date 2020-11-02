@@ -9,69 +9,52 @@ import XCTest
 @testable import DataLayer
 
 final class FileServiceTests: XCTestCase {
+    var networkServiceFake: NetworkServiceFake!
+    var fileService: TMDBFileService!
+
+    override func setUp() {
+        super.setUp()
+
+        networkServiceFake = NetworkServiceFake()
+        fileService = TMDBFileService(networkSession: networkServiceFake)
+    }
+
+    override func tearDown() {
+        networkServiceFake = nil
+        fileService = nil
+
+        super.tearDown()
+    }
+
     func testExecute_whenDataIsReturend_succeedsWithData() {
-        let expectedData = "someData".data(using: .utf8)
-        let fakeNetworkService = FakeNetworkService()
-        fakeNetworkService.data = expectedData
+        let expectedData = "someData".data(using: .utf8)!
+        networkServiceFake.result = .success(expectedData)
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let fileService = TMDBFileService(networkSession: fakeNetworkService)
 
-        var result: Result<Data, Error>?
-        fileService.execute(request: fakeRequest) { _result in
-            result = _result
+        _ = fileService.execute(request: fakeRequest).sink { result in
+            switch result {
+            case .finished: break
+            case .failure: XCTFail()
+            }
+        } receiveValue: { data in
+            XCTAssertEqual(data, expectedData)
         }
-
-        XCTAssertNotNil(result)
-        XCTAssertNoThrow(try result?.get())
-        XCTAssertEqual(try result?.get(), expectedData)
     }
 
     func testExecute_whenError_failsWithCorrectError() {
         let expectedError = FakeError.someError
-        let fakeNetworkService = FakeNetworkService()
-        fakeNetworkService.error = expectedError
+        networkServiceFake.result = .failure(expectedError) 
         let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let fileService = TMDBFileService(networkSession: fakeNetworkService)
 
-        var result: Result<Data, Error>?
-        fileService.execute(request: fakeRequest) { _result in
-            result = _result
-        }
-
-        XCTAssertNotNil(result)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FakeError, expectedError)
-        }
-    }
-    
-    func testExecute_whenDataNorErrorIsPresent_failsWithCorrectError() {
-        let fakeNetworkService = FakeNetworkService()
-        let fakeRequest = URLRequest(url: URL(string: "http://google.com")!)
-        let fileService = TMDBFileService(networkSession: fakeNetworkService)
-
-        var result: Result<Data, Error>?
-        fileService.execute(request: fakeRequest) { _result in
-            result = _result
-        }
-
-        XCTAssertNotNil(result)
-        XCTAssertThrowsError(try result?.get()) { error in
-            XCTAssertEqual(error as? FileServiceError, .ambigousResponse)
-        }
-    }
-}
-
-private class FakeNetworkService: NetworkSession {
-    var data: Data?
-    var error: Error?
-
-    func perform(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        if let error = error {
-            completionHandler(nil, nil, error)
-        } else {
-            completionHandler(data, nil, nil)
-        }
-    }
+        _ = fileService.execute(request: fakeRequest).sink (receiveCompletion: { result in
+            switch result {
+            case .finished:
+                XCTFail()
+            case let .failure(error):
+                XCTAssertEqual(error as? FakeError, expectedError)
+            }
+        })
+    }    
 }
 
 private struct FakeDTO: Codable {
