@@ -27,9 +27,9 @@ struct MovieListItemView: View {
             Spacer().frame(height: 30)
             HStack {
                 Spacer().frame(width: 60)
-                Image(uiImage: viewModel.image ?? UIImage())
+                Image(uiImage: UIImage(data: viewModel.imageData ?? Data()) ?? UIImage())
                     .resizable()
-                    .aspectRatio(viewModel.imageSize, contentMode: .fill)
+                    .aspectRatio(CGSize(width: 400, height: 600), contentMode: .fill)
                 Spacer().frame(width: 60)
             }
             Spacer().frame(height: 10)
@@ -48,7 +48,7 @@ private class MovieListItemViewModel: ObservableObject {
     private let movieId: String
     private var subscription: AnyCancellable?
 
-    @Published var image: UIImage?
+    @Published var imageData: Data?
     @Published var imageSize: CGSize = CGSize(width: 400, height: 600)
 
     init(dependencies: MovieListItemViewDependencies, movieId: String) {
@@ -65,15 +65,10 @@ private class MovieListItemViewModel: ObservableObject {
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished: break
-                case .failure: self?.image = nil
+                case .failure: self?.imageData = nil
                 }
             }, receiveValue: { [weak self] data in
-                if let image = UIImage(data: data) {
-                    self?.image = image
-                    self?.imageSize = image.size
-                } else {
-                    self?.image = nil
-                }
+                self?.imageData = data
             })
     }
 }
