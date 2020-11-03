@@ -20,7 +20,3 @@ class DataNetworkSession: NetworkSession {
             .eraseToAnyPublisher()
     }
 }
-
-enum DataNetworkSessionError: Error {
-    case ambigousResponse
-}
