@@ -19,8 +19,14 @@ public struct MainView: View {
     }
 
     public var body: some View {
-        PopularMoviesView(dependencies: dependencies) { movieId in
-            MovieDetailsView(dependencies: dependencies, movieId: movieId)
+        TabView {
+            PopularMoviesView(dependencies: dependencies) { movieId in
+                MovieDetailsView(dependencies: dependencies, movieId: movieId)
+            }
+            .tabItem {
+                Image(systemName: "film.fill")
+                Text("Popular Movies")
+            }
         }
     }
 }
