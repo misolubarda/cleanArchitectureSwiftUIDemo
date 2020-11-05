@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 @testable import DataLayer
 
 class WebServiceFake<Dec>: WebService where Dec: Decodable {

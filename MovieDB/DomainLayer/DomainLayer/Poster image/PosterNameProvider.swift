@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 public protocol PosterNameProvider {
     func posterName(forMovieId movieId: String, isSecondary: Bool) -> AnyPublisher<String, Error>

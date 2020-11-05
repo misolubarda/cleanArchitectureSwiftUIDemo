@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 @testable import DataLayer
 
 class FileServiceFake: FileService {

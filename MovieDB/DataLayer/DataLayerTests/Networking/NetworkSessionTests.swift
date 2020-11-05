@@ -6,8 +6,11 @@
 //
 
 import Foundation
-
 import XCTest
+import Combine
+
+import Shared
+
 @testable import DataLayer
 
 final class NetworkSessionTests: XCTestCase {

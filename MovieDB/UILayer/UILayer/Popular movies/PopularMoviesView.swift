@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Combine
+
 import DomainLayer
 
 public protocol PopularMoviesViewDependencies: MovieListItemViewDependencies {

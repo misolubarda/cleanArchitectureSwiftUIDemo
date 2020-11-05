@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 public extension Publisher {
     func sink() -> AnyCancellable {

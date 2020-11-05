@@ -6,6 +6,8 @@
 //
 
 import XCTest
+import Combine
+
 @testable import DataLayer
 import DomainLayer
 

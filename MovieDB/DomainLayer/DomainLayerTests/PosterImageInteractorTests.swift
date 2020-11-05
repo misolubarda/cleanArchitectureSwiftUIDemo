@@ -6,6 +6,9 @@
 //
 
 import XCTest
+import Combine
+
+import Shared
 @testable import DomainLayer
 
 class PosterImageInteractorTests: XCTestCase {

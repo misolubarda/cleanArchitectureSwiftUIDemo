@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 import DomainLayer
 
 class TMDBSearchMoviesProvider : SearchMoviesProvider {

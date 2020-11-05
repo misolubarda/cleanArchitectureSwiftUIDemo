@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 import DomainLayer
 
 public class TMDBPosterImageProvider: PosterImageProvider {
