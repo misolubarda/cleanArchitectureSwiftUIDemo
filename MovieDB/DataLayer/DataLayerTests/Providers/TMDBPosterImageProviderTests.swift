@@ -88,7 +88,3 @@ final class TMDBPosterImageProviderTests: XCTestCase {
             }
     }
 }
-
-private enum FakeError: Error {
-    case someError
-}

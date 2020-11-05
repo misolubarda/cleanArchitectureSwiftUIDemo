@@ -93,7 +93,3 @@ class TMDBMovieDetailsProviderTests: XCTestCase {
                                     vote_average: 4.3)
     }
 }
-
-private enum FakeError: Error {
-    case someError
-}

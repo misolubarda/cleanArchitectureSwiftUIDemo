@@ -9,13 +9,13 @@ import XCTest
 @testable import DataLayer
 
 final class FileServiceTests: XCTestCase {
-    var networkServiceFake: NetworkServiceFake!
+    var networkServiceFake: NetworkSessionFake!
     var fileService: TMDBFileService!
 
     override func setUp() {
         super.setUp()
 
-        networkServiceFake = NetworkServiceFake()
+        networkServiceFake = NetworkSessionFake()
         fileService = TMDBFileService(networkSession: networkServiceFake)
     }
 
@@ -60,8 +60,4 @@ final class FileServiceTests: XCTestCase {
 private struct FakeDTO: Codable {
     let id: Int
     let title: String
-}
-
-private enum FakeError: Error {
-    case someError
 }

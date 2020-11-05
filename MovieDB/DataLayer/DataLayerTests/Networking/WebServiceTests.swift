@@ -8,13 +8,13 @@ import XCTest
 @testable import DataLayer
 
 final class WebServiceTests: XCTestCase {
-    var networkServiceFake: NetworkServiceFake!
+    var networkServiceFake: NetworkSessionFake!
     var webService: TMDBWebService!
 
     override func setUp() {
         super.setUp()
 
-        networkServiceFake = NetworkServiceFake()
+        networkServiceFake = NetworkSessionFake()
         webService = TMDBWebService(networkSession: networkServiceFake)
     }
 
@@ -75,8 +75,4 @@ final class WebServiceTests: XCTestCase {
 private struct FakeDTO: Codable, Equatable {
     let id: Int
     let title: String
-}
-
-private enum FakeError: Error {
-    case someError
 }

@@ -192,8 +192,3 @@ final class TMDBPopularMoviesProviderTests: XCTestCase {
                                             total_pages: 1)
     }
 }
-
-
-private enum FakeError: Error {
-    case someError
-}

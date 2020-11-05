@@ -34,6 +34,7 @@ extension TMDBRequest {
     enum Endpoint {
         case popularMovies(page: Int)
         case movieDetails(movieId: String)
+        case searchMovies(term: String)
 
         var path: String {
             switch self {
@@ -41,6 +42,8 @@ extension TMDBRequest {
                 return "movie/popular"
             case let .movieDetails(movieId):
                 return "movie/\(movieId)"
+            case .searchMovies:
+                return "search/movie"
             }
         }
 
@@ -50,8 +53,10 @@ extension TMDBRequest {
                 return "&page=\(page)"
             case .movieDetails:
                 return ""
+            case let .searchMovies(term):
+                let term = term.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                return "&query=\(term)" // TODO url encode this
             }
-
         }
     }
 }

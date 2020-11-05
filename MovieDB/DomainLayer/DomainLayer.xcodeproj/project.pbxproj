@@ -23,6 +23,9 @@
 		42733C5A25375A1300418642 /* PosterImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C5925375A1300418642 /* PosterImageInteractor.swift */; };
 		427C2441254191F700F6DD8A /* PosterImageInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C2440254191F700F6DD8A /* PosterImageInteractorTests.swift */; };
 		42D4F78E2539D4CA00F6F077 /* PosterNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F78D2539D4CA00F6F077 /* PosterNameProvider.swift */; };
+		AC6F7A732552DCB600EE0B1E /* SearchMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F7A722552DCB600EE0B1E /* SearchMoviesUseCase.swift */; };
+		AC6F7A762552DFBE00EE0B1E /* SearchMoviesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F7A752552DFBE00EE0B1E /* SearchMoviesProvider.swift */; };
+		AC6F7A7C2552F14700EE0B1E /* SearchedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F7A7B2552F14700EE0B1E /* SearchedMovie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		42733C5925375A1300418642 /* PosterImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageInteractor.swift; sourceTree = "<group>"; };
 		427C2440254191F700F6DD8A /* PosterImageInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageInteractorTests.swift; sourceTree = "<group>"; };
 		42D4F78D2539D4CA00F6F077 /* PosterNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterNameProvider.swift; sourceTree = "<group>"; };
+		AC6F7A722552DCB600EE0B1E /* SearchMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesUseCase.swift; sourceTree = "<group>"; };
+		AC6F7A752552DFBE00EE0B1E /* SearchMoviesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesProvider.swift; sourceTree = "<group>"; };
+		AC6F7A7B2552F14700EE0B1E /* SearchedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedMovie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 		42733B802537475300418642 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				AC6F7A712552DC7300EE0B1E /* Search movies */,
 				425006F1254DE332004C53C4 /* GlobalImport.swift */,
 				42733B822537475300418642 /* Info.plist */,
 				426C868325389F890038BC43 /* Movie details */,
@@ -168,6 +175,16 @@
 				422B6C812546EFB300D88BC3 /* SecondaryPosterImageUseCase.swift */,
 			);
 			path = "Poster image";
+			sourceTree = "<group>";
+		};
+		AC6F7A712552DC7300EE0B1E /* Search movies */ = {
+			isa = PBXGroup;
+			children = (
+				AC6F7A722552DCB600EE0B1E /* SearchMoviesUseCase.swift */,
+				AC6F7A752552DFBE00EE0B1E /* SearchMoviesProvider.swift */,
+				AC6F7A7B2552F14700EE0B1E /* SearchedMovie.swift */,
+			);
+			path = "Search movies";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +296,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC6F7A732552DCB600EE0B1E /* SearchMoviesUseCase.swift in Sources */,
+				AC6F7A762552DFBE00EE0B1E /* SearchMoviesProvider.swift in Sources */,
 				42733C41253754E700418642 /* PosterImageUseCase.swift in Sources */,
 				42733C1A25374AE800418642 /* PopularMoviesProvider.swift in Sources */,
 				426C868525389FCB0038BC43 /* MovieDetailsProvider.swift in Sources */,
@@ -287,6 +306,7 @@
 				426C868925389FD60038BC43 /* MovieDetails.swift in Sources */,
 				42733C4E2537556300418642 /* PosterImageProvider.swift in Sources */,
 				42D4F78E2539D4CA00F6F077 /* PosterNameProvider.swift in Sources */,
+				AC6F7A7C2552F14700EE0B1E /* SearchedMovie.swift in Sources */,
 				42733C5A25375A1300418642 /* PosterImageInteractor.swift in Sources */,
 				425006F2254DE332004C53C4 /* GlobalImport.swift in Sources */,
 				42733C13253749DD00418642 /* Movie.swift in Sources */,
