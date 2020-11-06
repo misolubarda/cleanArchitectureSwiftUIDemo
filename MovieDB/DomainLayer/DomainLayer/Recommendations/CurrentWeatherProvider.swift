@@ -19,8 +19,3 @@ public struct CurrentWeather {
 
     let weatherType: WeatherType
 }
-
-public struct Location {
-    let latitude: Double
-    let longitude: Double
-}
