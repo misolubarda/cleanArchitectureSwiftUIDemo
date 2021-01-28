@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		42500692254DDB75004C53C4 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42500688254DDB75004C53C4 /* Shared.framework */; };
-		425006BC254DDC12004C53C4 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425006BB254DDC12004C53C4 /* Publisher+Sink.swift */; };
+		425006BC254DDC12004C53C4 /* Publisher+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425006BB254DDC12004C53C4 /* Publisher+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,7 +26,7 @@
 		4250068C254DDB75004C53C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42500691254DDB75004C53C4 /* SharedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SharedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42500698254DDB75004C53C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		425006BB254DDC12004C53C4 /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
+		425006BB254DDC12004C53C4 /* Publisher+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 		4250068A254DDB75004C53C4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				425006BB254DDC12004C53C4 /* Publisher+Sink.swift */,
+				425006BB254DDC12004C53C4 /* Publisher+Convenience.swift */,
 				4250068C254DDB75004C53C4 /* Info.plist */,
 			);
 			path = Shared;
@@ -190,7 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				425006BC254DDC12004C53C4 /* Publisher+Sink.swift in Sources */,
+				425006BC254DDC12004C53C4 /* Publisher+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

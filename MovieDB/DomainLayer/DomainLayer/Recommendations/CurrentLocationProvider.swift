@@ -9,11 +9,16 @@ import Foundation
 import Combine
 
 public protocol CurrentLocationProvider {
-    func fetch(for location: Location) -> AnyPublisher<CurrentWeather, Error>
+    func fetch() -> AnyPublisher<Location, Error>
 }
 
 public struct Location {
-    let latitude: Double
-    let longitude: Double
+    public let latitude: Double
+    public let longitude: Double
+
+    public init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
 }
 

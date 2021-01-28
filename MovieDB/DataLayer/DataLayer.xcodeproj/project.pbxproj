@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		420FAAC925628E0800FF381F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420FAAC825628E0800FF381F /* LocationManager.swift */; };
 		4250067C254BFF30004C53C4 /* NetworkSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4250067B254BFF30004C53C4 /* NetworkSessionFake.swift */; };
 		425006C2254DDC52004C53C4 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425006C1254DDC52004C53C4 /* Shared.framework */; };
 		425006C3254DDC52004C53C4 /* Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 425006C1254DDC52004C53C4 /* Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -22,8 +23,13 @@
 		42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C53253755D100418642 /* TMDBPosterImageProvider.swift */; };
 		42733C572537562300418642 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42733C562537562300418642 /* FileService.swift */; };
 		42734899253F0367008CA995 /* FileServiceFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42734898253F0367008CA995 /* FileServiceFake.swift */; };
+		42A4DE4025573EC30039FD5D /* LocationManagerFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A4DE3F25573EC30039FD5D /* LocationManagerFake.swift */; };
 		42BFA67A2541C0AC00944FE1 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BFA6792541C0AC00944FE1 /* Cache.swift */; };
 		42BFA67E2541C3ED00944FE1 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BFA67D2541C3ED00944FE1 /* CacheTests.swift */; };
+		42C262BB25599946000B683C /* CLLocationManagerCombine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C262BA25599946000B683C /* CLLocationManagerCombine.swift */; };
+		42C6D529255571BB00D4A9AA /* CLCurrentLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C6D528255571BB00D4A9AA /* CLCurrentLocationProvider.swift */; };
+		42C6D52D25573DED00D4A9AA /* CLCurrentLocationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C6D52C25573DED00D4A9AA /* CLCurrentLocationProviderTests.swift */; };
+		42D4437D255C359C00CAFE5F /* CLLocation+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4437C255C359C00CAFE5F /* CLLocation+Location.swift */; };
 		42D4F7A52539E63400F6F077 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7932539E36F00F6F077 /* DeviceInfo.swift */; };
 		42D4F7C5253B42F800F6F077 /* WebServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7C4253B42F800F6F077 /* WebServiceTests.swift */; };
 		42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D4F7C9253B439900F6F077 /* NetworkSessionTests.swift */; };
@@ -65,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		420FAAC825628E0800FF381F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4250067B254BFF30004C53C4 /* NetworkSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionFake.swift; sourceTree = "<group>"; };
 		425006C1254DDC52004C53C4 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		426C868025389F5E0038BC43 /* TMDBMovieDetailsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBMovieDetailsProvider.swift; sourceTree = "<group>"; };
@@ -81,8 +88,13 @@
 		42733C53253755D100418642 /* TMDBPosterImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBPosterImageProvider.swift; sourceTree = "<group>"; };
 		42733C562537562300418642 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		42734898253F0367008CA995 /* FileServiceFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceFake.swift; sourceTree = "<group>"; };
+		42A4DE3F25573EC30039FD5D /* LocationManagerFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFake.swift; sourceTree = "<group>"; };
 		42BFA6792541C0AC00944FE1 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		42BFA67D2541C3ED00944FE1 /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
+		42C262BA25599946000B683C /* CLLocationManagerCombine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerCombine.swift; sourceTree = "<group>"; };
+		42C6D528255571BB00D4A9AA /* CLCurrentLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLCurrentLocationProvider.swift; sourceTree = "<group>"; };
+		42C6D52C25573DED00D4A9AA /* CLCurrentLocationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLCurrentLocationProviderTests.swift; sourceTree = "<group>"; };
+		42D4437C255C359C00CAFE5F /* CLLocation+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Location.swift"; sourceTree = "<group>"; };
 		42D4F7932539E36F00F6F077 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		42D4F7C4253B42F800F6F077 /* WebServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceTests.swift; sourceTree = "<group>"; };
 		42D4F7C9253B439900F6F077 /* NetworkSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionTests.swift; sourceTree = "<group>"; };
@@ -143,6 +155,7 @@
 			children = (
 				42DDAB81253DF17D008B55B7 /* Conveniences */,
 				42BFA6782541C07900944FE1 /* Cache */,
+				42C6D5272555719E00D4A9AA /* Location */,
 				42733BDB2537479200418642 /* Networking */,
 				42D4F7922539E30C00F6F077 /* Device info */,
 				42733C51253755B900418642 /* Providers */,
@@ -154,6 +167,7 @@
 		42733BBD2537476500418642 /* DataLayerTests */ = {
 			isa = PBXGroup;
 			children = (
+				42D44376255C353300CAFE5F /* Conveniences */,
 				42D4F7D9253B4B2700F6F077 /* Fakes */,
 				42BFA67C2541C3DB00944FE1 /* Cache */,
 				42D4F7D1253B4AB000F6F077 /* Networking */,
@@ -191,6 +205,7 @@
 				42733C53253755D100418642 /* TMDBPosterImageProvider.swift */,
 				426C868025389F5E0038BC43 /* TMDBMovieDetailsProvider.swift */,
 				AC6F7A782552E0D400EE0B1E /* TMDBSearchMoviesProvider.swift */,
+				42C6D528255571BB00D4A9AA /* CLCurrentLocationProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -209,6 +224,23 @@
 				42BFA67D2541C3ED00944FE1 /* CacheTests.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		42C6D5272555719E00D4A9AA /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				42C262BA25599946000B683C /* CLLocationManagerCombine.swift */,
+				420FAAC825628E0800FF381F /* LocationManager.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		42D44376255C353300CAFE5F /* Conveniences */ = {
+			isa = PBXGroup;
+			children = (
+				42D4437C255C359C00CAFE5F /* CLLocation+Location.swift */,
+			);
+			path = Conveniences;
 			sourceTree = "<group>";
 		};
 		42D4F7922539E30C00F6F077 /* Device info */ = {
@@ -236,6 +268,7 @@
 				42EB6AD7253F02B900C18A0F /* TMDBPosterImageProviderTests.swift */,
 				42FF3D6B25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift */,
 				AC6F7A7E255416FB00EE0B1E /* TMDBSearchMoviesProviderTests.swift */,
+				42C6D52C25573DED00D4A9AA /* CLCurrentLocationProviderTests.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -248,6 +281,7 @@
 				42734898253F0367008CA995 /* FileServiceFake.swift */,
 				4250067B254BFF30004C53C4 /* NetworkSessionFake.swift */,
 				AC6F7A8225543AAE00EE0B1E /* FakeError.swift */,
+				42A4DE3F25573EC30039FD5D /* LocationManagerFake.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -374,6 +408,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42733C54253755D100418642 /* TMDBPosterImageProvider.swift in Sources */,
+				42C262BB25599946000B683C /* CLLocationManagerCombine.swift in Sources */,
+				420FAAC925628E0800FF381F /* LocationManager.swift in Sources */,
 				426C868125389F5E0038BC43 /* TMDBMovieDetailsProvider.swift in Sources */,
 				42733C572537562300418642 /* FileService.swift in Sources */,
 				42733C3E2537535900418642 /* TMDBImageRequest.swift in Sources */,
@@ -382,6 +418,7 @@
 				42733BDF253747A400418642 /* WebService.swift in Sources */,
 				42BFA67A2541C0AC00944FE1 /* Cache.swift in Sources */,
 				42733C1E25374B1200418642 /* TMDBPopularMoviesProvider.swift in Sources */,
+				42C6D529255571BB00D4A9AA /* CLCurrentLocationProvider.swift in Sources */,
 				AC6F7A792552E0D400EE0B1E /* TMDBSearchMoviesProvider.swift in Sources */,
 				42D4F7A52539E63400F6F077 /* DeviceInfo.swift in Sources */,
 				42733BDE253747A400418642 /* NetworkSession.swift in Sources */,
@@ -392,6 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42D4437D255C359C00CAFE5F /* CLLocation+Location.swift in Sources */,
 				AC6F7A7F255416FB00EE0B1E /* TMDBSearchMoviesProviderTests.swift in Sources */,
 				42BFA67E2541C3ED00944FE1 /* CacheTests.swift in Sources */,
 				4250067C254BFF30004C53C4 /* NetworkSessionFake.swift in Sources */,
@@ -404,7 +442,9 @@
 				42EB6AD8253F02B900C18A0F /* TMDBPosterImageProviderTests.swift in Sources */,
 				42D4F7CA253B439900F6F077 /* NetworkSessionTests.swift in Sources */,
 				AC6F7A8325543AAE00EE0B1E /* FakeError.swift in Sources */,
+				42C6D52D25573DED00D4A9AA /* CLCurrentLocationProviderTests.swift in Sources */,
 				42FF3D6C25405E600096F0A9 /* TMDBMovieDetailsProviderTests.swift in Sources */,
+				42A4DE4025573EC30039FD5D /* LocationManagerFake.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
